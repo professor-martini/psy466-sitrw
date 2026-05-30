@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sex in the Real World – Project Guide & Troubleshooting</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-size: 16px;
+    line-height: 1.7;
+    color: #1a1a1a;
+    background: #fff;
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 4rem;
+  }
+
+  h1 {
+    font-size: 24px;
+    font-weight: 500;
+    margin-bottom: 0.4rem;
+    color: #1a1a1a;
+  }
+
+  .subtitle {
+    font-size: 15px;
+    color: #666;
+    margin-bottom: 2.5rem;
+    border-bottom: 0.5px solid #ddd;
+    padding-bottom: 1.5rem;
+  }
+
+  .stage {
+    margin-bottom: 2.5rem;
+    border: 0.5px solid #ddd;
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .stage-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 1rem 1.25rem;
+    background: #f7f7f5;
+    border-bottom: 0.5px solid #ddd;
+  }
+
+  .stage-badge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    font-size: 13px;
+    font-weight: 500;
+    flex-shrink: 0;
+  }
+
+  .badge-1 { background: #CECBF6; color: #3C3489; }
+  .badge-2 { background: #9FE1CB; color: #085041; }
+  .badge-3 { background: #B5D4F4; color: #0C447C; }
+  .badge-4 { background: #FAC775; color: #633806; }
+  .badge-5 { background: #F5C4B3; color: #712B13; }
+
+  .stage-title {
+    font-size: 16px;
+    font-weight: 500;
+    color: #1a1a1a;
+  }
+
+  .stage-due {
+    margin-left: auto;
+    font-size: 12px;
+    color: #888;
+    background: #fff;
+    border: 0.5px solid #ddd;
+    border-radius: 20px;
+    padding: 3px 10px;
+    white-space: nowrap;
+  }
+
+  .stage-body {
+    padding: 1.25rem 1.5rem;
+  }
+
+  .stage-intro {
+    font-size: 15px;
+    color: #444;
+    margin-bottom: 1.25rem;
+    line-height: 1.65;
+  }
+
+  .faq-item {
+    margin-bottom: 1rem;
+    border: 0.5px solid #e8e8e8;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .faq-q {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 0.85rem 1rem;
+    background: #fafafa;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    color: #1a1a1a;
+    user-select: none;
+    list-style: none;
+    border: none;
+    width: 100%;
+    text-align: left;
+  }
+
+  .faq-q:hover { background: #f3f3f0; }
+
+  .faq-q .q-label {
+    font-size: 11px;
+    font-weight: 500;
+    color: #888;
+    background: #e8e8e8;
+    border-radius: 4px;
+    padding: 2px 6px;
+    flex-shrink: 0;
+    margin-top: 2px;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+  }
+
+  .faq-q .chevron {
+    margin-left: auto;
+    flex-shrink: 0;
+    font-size: 18px;
+    color: #aaa;
+    transition: transform 0.2s;
+    line-height: 1;
+  }
+
+  .faq-q.open .chevron { transform: rotate(180deg); }
+
+  .faq-a {
+    display: none;
+    padding: 1rem 1rem 1rem 1rem;
+    font-size: 14px;
+    line-height: 1.7;
+    color: #333;
+    border-top: 0.5px solid #e8e8e8;
+  }
+
+  .faq-a.visible { display: block; }
+
+  .faq-a p { margin-bottom: 0.75rem; }
+  .faq-a p:last-child { margin-bottom: 0; }
+
+  .example-box {
+    background: #f7f7f5;
+    border: 0.5px solid #ddd;
+    border-radius: 8px;
+    padding: 1rem 1.1rem;
+    margin-top: 0.75rem;
+    font-size: 13px;
+    line-height: 1.65;
+  }
+
+  .example-box .ex-label {
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #888;
+    margin-bottom: 0.5rem;
+  }
+
+  .example-box .ex-bad {
+    color: #993C1D;
+    margin-bottom: 0.4rem;
+  }
+
+  .example-box .ex-good {
+    color: #0F6E56;
+  }
+
+  .example-box .ex-bad::before { content: "✗  "; font-weight: 500; }
+  .example-box .ex-good::before { content: "✓  "; font-weight: 500; }
+
+  .tip-box {
+    background: #E6F1FB;
+    border: 0.5px solid #B5D4F4;
+    border-radius: 8px;
+    padding: 0.85rem 1rem;
+    margin-top: 0.75rem;
+    font-size: 13px;
+    color: #0C447C;
+    line-height: 1.6;
+  }
+
+  .tip-box strong { font-weight: 500; }
+
+  .warn-box {
+    background: #FAEEDA;
+    border: 0.5px solid #FAC775;
+    border-radius: 8px;
+    padding: 0.85rem 1rem;
+    margin-top: 0.75rem;
+    font-size: 13px;
+    color: #633806;
+    line-height: 1.6;
+  }
+
+  .annotation-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    margin-top: 0.75rem;
+  }
+
+  .annotation-table th {
+    background: #f0f0ee;
+    text-align: left;
+    padding: 7px 10px;
+    font-weight: 500;
+    color: #444;
+    border: 0.5px solid #ddd;
+  }
+
+  .annotation-table td {
+    padding: 8px 10px;
+    border: 0.5px solid #e4e4e4;
+    vertical-align: top;
+    color: #333;
+    line-height: 1.55;
+  }
+
+  .annotation-table tr:nth-child(even) td { background: #fafaf8; }
+
+  .checklist {
+    list-style: none;
+    margin-top: 0.6rem;
+  }
+
+  .checklist li {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 13px;
+    color: #333;
+    margin-bottom: 0.4rem;
+    line-height: 1.55;
+  }
+
+  .checklist li::before {
+    content: "☐";
+    flex-shrink: 0;
+    font-size: 15px;
+    color: #aaa;
+    margin-top: -1px;
+  }
+
+  .nav-strip {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+  }
+
+  .nav-pill {
+    font-size: 13px;
+    padding: 5px 13px;
+    border-radius: 20px;
+    border: 0.5px solid #ddd;
+    background: #fff;
+    color: #444;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.15s, color 0.15s;
+  }
+
+  .nav-pill:hover { background: #f0f0ee; color: #1a1a1a; }
+
+  .pill-1:hover { background: #EEEDFE; color: #3C3489; border-color: #CECBF6; }
+  .pill-2:hover { background: #E1F5EE; color: #085041; border-color: #9FE1CB; }
+  .pill-3:hover { background: #E6F1FB; color: #0C447C; border-color: #B5D4F4; }
+  .pill-4:hover { background: #FAEEDA; color: #633806; border-color: #FAC775; }
+  .pill-5:hover { background: #FAECE7; color: #712B13; border-color: #F5C4B3; }
+</style>
+</head>
+<body>
+
+<h1>Sex in the Real World – Project Guide & Troubleshooting</h1>
+<p class="subtitle">A stage-by-stage walkthrough of common questions, worked examples, and tips to keep you on track in this fast-moving course.</p>
+
+<nav class="nav-strip" aria-label="Jump to stage">
+  <a class="nav-pill pill-1" href="#stage1">1 · Topic selection</a>
+  <a class="nav-pill pill-2" href="#stage2">2 · Articles & annotations</a>
+  <a class="nav-pill pill-3" href="#stage3">3 · Project description</a>
+  <a class="nav-pill pill-4" href="#stage4">4 · 1-on-1 with Dr. M.</a>
+  <a class="nav-pill pill-5" href="#stage5">5 · Final campaign</a>
+</nav>
+
+
+<!-- STAGE 1 -->
+<section class="stage" id="stage1">
+  <div class="stage-header">
+    <div class="stage-badge badge-1">1</div>
+    <span class="stage-title">Topic selection</span>
+    <span class="stage-due">Due Sunday, May 31</span>
+  </div>
+  <div class="stage-body">
+    <p class="stage-intro">You have a lot of freedom here, which is great — and occasionally paralyzing. The questions below cover the most common sticking points.</p>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)" aria-expanded="false">
+        <span class="q-label">Q</span>
+        How do I know if my topic is the right size?
+        <span class="chevron">⌄</span>
+      </button>
+      <div class="faq-a">
+        <p>A good topic fits inside a short social media campaign and has enough empirical research behind it to support five peer-reviewed articles. The most common problem is picking something too broad — something that could be its own semester course.</p>
+        <p>A useful gut check: can you imagine a real 10th grader stopping their scroll for this? If the topic sounds like a chapter heading, it needs to be narrowed.</p>
+        <div class="example-box">
+          <div class="ex-label">Topic narrowing — examples</div>
+          <p class="ex-bad">Consent <span style="color:#bbb;font-weight:400">(too broad — a whole literature)</span></p>
+          <p class="ex-good">Why "going along with it" doesn't count as consent, and what to say instead</p>
+          <br>
+          <p class="ex-bad">STIs <span style="color:#bbb;font-weight:400">(too broad — dozens of infections, each its own topic)</span></p>
+          <p class="ex-good">Why so many people with chlamydia don't know they have it — and why testing matters</p>
+          <br>
+          <p class="ex-bad">Birth control <span style="color:#bbb;font-weight:400">(too broad — covers method comparison, effectiveness, access, etc.)</span></p>
+          <p class="ex-good">Things people do that make birth control pills less effective</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)" aria-expanded="false">
+        <span class="q-label">Q</span>
+        I found a topic I'm really interested in. Should I just go with it?
+        <span class="chevron">⌄</span>
+      </button>
+      <div class="faq-a">
+        <p>Interest is a great starting point — but before you commit, do a quick literature search first. Search Google Scholar or PsycINFO for your topic and see whether you can find at least five peer-reviewed empirical articles (articles with a Methods section and a Results section reporting original data — not opinion pieces, reviews, or magazine articles).</p>
+        <p>If you can't find five articles in 10 minutes of searching, that's a signal the topic may be too niche, too recent, or more cultural than scientific. It's much easier to pivot now than after you've already invested time.</p>
+        <div class="tip-box"><strong>Quick check before submitting:</strong> Open Google Scholar. Search your topic + "empirical study." If you get a solid list of peer-reviewed results, you're in good shape. If you mostly get news coverage, opinion pieces, or nothing, narrow or pivot.</div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)" aria-expanded="false">
+        <span class="q-label">Q</span>
+        My topic is interesting but I'm not sure it translates to social media for teens. What should I do?
+        <span class="chevron">⌄</span>
+      </button>
+      <div class="faq-a">
+        <p>This is worth thinking through early. Some topics are academically interesting but hard to translate for a 16-year-old audience in a non-shaming, engaging way. A useful test: can you identify a specific misconception that a 10th or 11th grader is likely to hold about this topic? If yes, you have something to work with. If the topic is too clinical or abstract to connect to a real teen's life, consider narrowing or reframing it.</p>
+        <p>For example, "treatment of vaginismus" is a legitimate clinical topic but may be harder to frame engagingly for a teen audience than "why some people find sex painful and what can help." Same underlying science — very different entry point.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- STAGE 2 -->
+<section class="stage" id="stage2">
+  <div class="stage-header">
+    <div class="stage-badge badge-2">2</div>
+    <span class="stage-title">Articles & annotations</span>
+    <span class="stage-due">Due Sunday, June 7</span>
+  </div>
+  <div class="stage-body">
+    <p class="stage-intro">You need five empirical articles total; you'll submit annotated summaries for three of them using the provided table. Here's where students most often go sideways.</p>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)" aria-expanded="false">
+        <span class="q-label">Q</span>
+        What makes an article "empirical"? I'm not sure I'm finding the right kind.
+        <span class="chevron">⌄</span>
+      </button>
+      <div class="faq-a">
+        <p>An empirical article reports original data collected by the authors of that study. It will have a <strong>Methods section</strong> (describing how data was collected) and a <strong>Results section</strong> (reporting what was found). If it doesn't have both of those sections, it's not empirical for this assignment.</p>
+        <div class="example-box">
+          <div class="ex-label">What counts — and what doesn't</div>
+          <p class="ex-bad">A review article that summarizes other studies (no original data)</p>
+          <p class="ex-bad">A meta-analysis (combines existing studies — no original data collection)</p>
+          <p class="ex-bad">A Psychology Today article, magazine piece, or blog post</p>
+          <p class="ex-bad">A book chapter</p>
+          <p class="ex-bad">A position statement or opinion piece from a professional organization</p>
+          <br>
+          <p class="ex-good">A study that recruited participants, measured something, and reported results</p>
+          <p class="ex-good">A survey study with a sample, procedure, and statistical results</p>
+          <p class="ex-good">An experiment with conditions, participants, and findings</p>
+        </div>
+        <div class="tip-box"><strong>Unsure?</strong> Open the article and scan for a section labeled "Method" or "Methods." If you find it, you're on the right track. Then look for "Results." If both are there and the researchers collected their own data, it's empirical.</div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)" aria-expanded="false">
+        <span class="q-label">Q</span>
+        Where should I be searching for these articles?
+        <span class="chevron">⌄</span>
+      </button>
+      <div class="faq-a">
+        <p>Start with <strong>PsycINFO</strong> (available through the NSU library) or <strong>Google Scholar</strong>. Both will surface peer-reviewed research. PsycINFO in particular lets you filter by "Peer Reviewed" and "Empirical Study" which saves a lot of time.</p>
+        <p>In Google Scholar, try adding terms like "study," "survey," or "experiment" to your search along with your topic. This helps surface empirical work rather than review articles.</p>
+        <div class="warn-box"><strong>A note on full-text access:</strong> If an article is paywalled, check whether NSU's library has access. You can also email the first author directly — researchers are often happy to share their own work. Don't use a source you haven't read in full.</div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)" aria-expanded="false">
+        <span class="q-label">Q</span>
+        What's the difference between an annotation and a summary? The table asks for both.
+        <span class="chevron">⌄</span>
+      </button>
+      <div class="faq-a">
+        <p>The summary table walks you through the article section by section — introduction, hypothesis, method, results, explanation — and then asks you to combine those pieces into a coherent paragraph. That final paragraph <em>is</em> your summary.</p>
+        <p>An annotation goes one step further: it evaluates the source and connects it to your project. A strong annotation doesn't just describe what the article found — it explains why this particular study is useful for your project, what specific finding you plan to use, and how it connects to the misconception you're trying to address.</p>
+
+        <div class="example-box">
+          <div class="ex-label">Annotation example (abbreviated)</div>
+          <p style="color:#333; margin-bottom: 0.5rem;"><em>Topic: Why people with chlamydia often don't know they have it</em></p>
+          <p style="color:#888; font-style:italic; margin-bottom: 0.5rem;">Weak (summary only):</p>
+          <p style="color:#555; margin-bottom: 0.75rem;">"This study surveyed 400 college students about STI testing behavior. They found that 62% had never been tested. The authors concluded that testing rates are low."</p>
+          <p style="color:#888; font-style:italic; margin-bottom: 0.5rem;">Stronger (annotation):</p>
+          <p style="color:#333;">"This study surveyed 400 college students and found that 62% had never been tested for STIs despite being sexually active, with the most common reason being 'I don't have any symptoms.' This directly supports my project's core claim — that many young people assume symptom-free means infection-free — and I will use the 62% statistic as the hook for my first post."</p>
+        </div>
+
+        <table class="annotation-table">
+          <thead>
+            <tr>
+              <th>Section in the table</th>
+              <th>What to do</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>APA reference</td>
+              <td>Full citation with DOI. Author(s), year, title, journal, volume, pages.</td>
+            </tr>
+            <tr>
+              <td>Introduction</td>
+              <td>1–2 sentences: what problem is this study addressing and why does it matter?</td>
+            </tr>
+            <tr>
+              <td>Hypothesis</td>
+              <td>State the hypothesis in your own words. Identify the predictor (independent) variable and the outcome (dependent) variable.</td>
+            </tr>
+            <tr>
+              <td>Method</td>
+              <td>1–2 sentences: who were the participants, what did they do, and how was the outcome measured?</td>
+            </tr>
+            <tr>
+              <td>Results & discussion</td>
+              <td>Was each hypothesis supported, partially supported, or not supported? Explain briefly.</td>
+            </tr>
+            <tr>
+              <td>Explanation</td>
+              <td>1–2 sentences: what do the authors say explains these results?</td>
+            </tr>
+            <tr>
+              <td>Put it all together</td>
+              <td>Combine steps 2–6 into one readable paragraph. Edit so it flows — don't just paste.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)" aria-expanded="false">
+        <span class="q-label">Q</span>
+        Can I use the same article to cover multiple points in my project?
+        <span class="chevron">⌄</span>
+      </button>
+      <div class="faq-a">
+        <p>You need five articles, and each one should contribute something distinct to your project — not just add numbers to a list. If three of your articles are all making the same point with slightly different samples, that's a sign to diversify your sources. Ideally, different articles cover different aspects of your topic: maybe one establishes the scope of the problem, one explains a mechanism, one looks at a specific population, and one points toward a solution or intervention.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- STAGE 3 -->
+<section class="stage" id="stage3">
+  <div class="stage-header">
+    <div class="stage-badge badge-3">3</div>
+    <span class="stage-title">Project description</span>
+    <span class="stage-due">Due Sunday, June 14</span>
+  </div>
+  <div class="stage-body">
+    <p class="stage-intro">This is a two-page, single-spaced document with three required components. Students who miss the mark here have usually written a literature review instead of a project description — or skipped one of the three components.</p>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)" aria-expanded="false">
+        <span class="q-label">Q</span>
+        What are the three things this document needs to cover?
+        <span class="chevron">⌄</span>
+      </button>
+      <div class="faq-a">
+        <p>The project description has three required components. All three need to be present — missing any one of them will affect your grade significantly.</p>
+        <ul class="checklist">
+          <li>A summary of the research from your five empirical articles (with in-text citations and a reference list)</li>
+          <li>The medium you chose — TikTok/Reels video series or Instagram carousel — and a real explanation of <em>why</em> that format works for your specific topic and audience</li>
+          <li>How you plan to identify the misconceptions your audience holds and correct them using the science from your articles</li>
+        </ul>
+        <div class="warn-box"><strong>The most common mistake:</strong> Students write a strong research summary, tack on "I chose TikTok because it's popular," and don't address the misconception piece at all. All three sections need genuine thought.</div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)" aria-expanded="false">
+        <span class="q-label">Q</span>
+        What counts as a "misconception"? I'm not sure how to identify one.
+        <span class="chevron">⌄</span>
+      </button>
+      <div class="faq-a">
+        <p>A misconception is a specific, nameable incorrect belief that real members of your audience are likely to hold — and that your research directly addresses. "Students don't know enough about this topic" is not a misconception. It's too vague to build a campaign around.</p>
+        <div class="example-box">
+          <div class="ex-label">Misconception examples</div>
+          <p class="ex-bad">"Students don't understand consent." <span style="color:#bbb;font-weight:400">(too vague)</span></p>
+          <p class="ex-good">"Many adolescents believe that silence or going along means yes."</p>
+          <br>
+          <p class="ex-bad">"Students need to learn about STI prevention." <span style="color:#bbb;font-weight:400">(a goal, not a misconception)</span></p>
+          <p class="ex-good">"Many teens believe that if they don't have symptoms, they can't have an STI."</p>
+          <br>
+          <p class="ex-bad">"Young people are misinformed about birth control." <span style="color:#bbb;font-weight:400">(not specific enough)</span></p>
+          <p class="ex-good">"Many teens believe that missing one pill occasionally doesn't really affect how well birth control works."</p>
+        </div>
+        <p style="margin-top: 0.75rem;">Once you've named the misconception, your project description should explain which specific article(s) provide the evidence to correct it.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)" aria-expanded="false">
+        <span class="q-label">Q</span>
+        How do I justify my medium choice beyond "everyone uses TikTok"?
+        <span class="chevron">⌄</span>
+      </button>
+      <div class="faq-a">
+        <p>Think about what your specific content needs in order to land effectively. A few questions that can help you build a real justification:</p>
+        <ul class="checklist">
+          <li>Does your topic work better as a visual (infographic carousel) or as a narrated explanation (video)?</li>
+          <li>Does your content have a natural sequence or series of steps — which might favor a multi-part video — or does it involve a comparison or set of facts that are easier to read than hear?</li>
+          <li>What format allows you to most clearly correct the specific misconception you identified?</li>
+          <li>What format would feel least "lecture-y" to a 16-year-old encountering this content while scrolling?</li>
+        </ul>
+        <p>You don't need to cite research on social media use. You just need to make a real argument that connects your content to your format choice.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- STAGE 4 -->
+<section class="stage" id="stage4">
+  <div class="stage-header">
+    <div class="stage-badge badge-4">4</div>
+    <span class="stage-title">1-on-1 with Dr. M.</span>
+    <span class="stage-due">Due by 5pm Friday, June 19</span>
+  </div>
+  <div class="stage-body">
+    <p class="stage-intro">This meeting exists to help you, not evaluate you. Dr. M. will flag potential problems before you invest time in a final product that misses the mark. The main thing that goes wrong here is waiting too long to schedule.</p>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)" aria-expanded="false">
+        <span class="q-label">Q</span>
+        When should I schedule this meeting?
+        <span class="chevron">⌄</span>
+      </button>
+      <div class="faq-a">
+        <p>Schedule it during Week 3 or early Week 4 — as soon as you've submitted your project description. Don't wait until Week 5. The deadline is Friday, June 19th at 5pm, and Dr. M.'s availability fills up. Students who wait until the last week often find that all slots are taken.</p>
+        <div class="tip-box"><strong>Schedule now:</strong> You can book via Calendly at <a href="https://calendly.com/1005373940-nevadastate/stumtg" style="color: #185FA5;">calendly.com/1005373940-nevadastate/stumtg</a>. You don't need to have everything figured out before you book — that's the point of the meeting.</div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)" aria-expanded="false">
+        <span class="q-label">Q</span>
+        What should I bring to the meeting or have ready?
+        <span class="chevron">⌄</span>
+      </button>
+      <div class="faq-a">
+        <p>The meeting will cover the materials from Stages 1–3 and your current thinking about the final product. You'll get the most out of it if you come with:</p>
+        <ul class="checklist">
+          <li>A clear sense of your topic and the specific misconception(s) you're targeting</li>
+          <li>Familiarity with what your articles actually say (not just what their titles suggest)</li>
+          <li>A rough idea of your format and what you want each video or slide to do</li>
+          <li>Any questions or concerns you already have about the project</li>
+        </ul>
+        <p>You don't need a finished product or a polished plan. Showing up with open questions is fine — that's exactly what this meeting is for.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)" aria-expanded="false">
+        <span class="q-label">Q</span>
+        I feel nervous about meeting one-on-one with my professor. Any advice?
+        <span class="chevron">⌄</span>
+      </button>
+      <div class="faq-a">
+        <p>That's completely understandable, and you're not alone in feeling that way. It helps to remember that this meeting is structured around your project, not around testing you. Dr. M. isn't looking for you to have all the answers — the goal is to make sure you're on a path that will lead to a strong final product.</p>
+        <p>If you're anxious, you can bring notes or a quick outline of where you are and what you're uncertain about. Having something concrete to refer to often makes the conversation feel more grounded.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- STAGE 5 -->
+<section class="stage" id="stage5">
+  <div class="stage-header">
+    <div class="stage-badge badge-5">5</div>
+    <span class="stage-title">Final social media campaign</span>
+    <span class="stage-due">Due by 5pm Friday, June 27</span>
+  </div>
+  <div class="stage-body">
+    <p class="stage-intro">The final submission is more than just the posts. Make sure you know exactly what you need to turn in — and what "evidence-based" actually requires in practice.</p>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)" aria-expanded="false">
+        <span class="q-label">Q</span>
+        What exactly do I need to submit? I don't want to miss anything.
+        <span class="chevron">⌄</span>
+      </button>
+      <div class="faq-a">
+        <p>The submission has two parts: the live post(s) and the written documentation. Many students post their content and consider it done — but the written documentation is a major component of what gets graded.</p>
+
+        <p><strong>If you chose the TikTok/Reels video format:</strong></p>
+        <ul class="checklist">
+          <li>Three posted TikTok/Reels-style videos (minimum 90 seconds total)</li>
+          <li>The caption/descriptive text for each video</li>
+          <li>A written script or transcript for each video</li>
+          <li>A source note for each video identifying which empirical article supports the major claims, with page numbers</li>
+          <li>The link to your mock account</li>
+        </ul>
+
+        <p style="margin-top: 0.75rem;"><strong>If you chose the Instagram carousel format:</strong></p>
+        <ul class="checklist">
+          <li>One Instagram carousel post (minimum five slides)</li>
+          <li>The caption/descriptive text for the post</li>
+          <li>The text that appears on each slide</li>
+          <li>A source note for each slide identifying which empirical article supports the major claims, with page numbers</li>
+          <li>The link to your mock account</li>
+        </ul>
+
+        <div class="warn-box"><strong>No link = no grade.</strong> Without an active, accessible link to your social media account, the project cannot be graded. Test your link before submitting.</div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)" aria-expanded="false">
+        <span class="q-label">Q</span>
+        How do I set up a mock account? Do I have to use my real name?
+        <span class="chevron">⌄</span>
+      </button>
+      <div class="faq-a">
+        <p>No — you should <em>not</em> use your real name or personal account for this. Create a new account specifically for this project. It doesn't need to be elaborate: a username, a profile picture (not your face), and the posts are all you need.</p>
+        <p>On TikTok and Instagram, you can create a second account using a different email address. Keep the account public so the link is accessible. You don't need to keep it active after the course ends.</p>
+        <div class="example-box">
+          <div class="ex-label">Your mock account should NOT</div>
+          <p class="ex-bad">Use your personal account name or real photos of yourself</p>
+          <p class="ex-bad">Include private personal information</p>
+          <p class="ex-bad">Use images of minors</p>
+          <p class="ex-bad">Directly contact, tag, or message minors</p>
+          <p class="ex-bad">Present itself as an official university, school, or public health account</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)" aria-expanded="false">
+        <span class="q-label">Q</span>
+        My content mentions studies, but do I really need to cite them on the actual post?
+        <span class="chevron">⌄</span>
+      </button>
+      <div class="faq-a">
+        <p>Yes — but you have flexibility in how you do it. You don't need a full APA citation on every slide or screen (that would make the post unreadable). You have two options:</p>
+        <ul class="checklist">
+          <li><strong>On-screen/on-slide:</strong> A brief in-text citation where the claim appears, e.g., "(Smith & Garcia, 2022)"</li>
+          <li><strong>In the caption:</strong> A note that explains which sources the post is based on, e.g., "Information in this post is drawn from research by Smith & Garcia (2022) and Nguyen et al. (2021)."</li>
+        </ul>
+        <p>Either approach is fine. What matters is that a viewer — and Dr. M. — can tell where your claims are coming from. "Studies show..." with no traceable source doesn't meet the requirement.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)" aria-expanded="false">
+        <span class="q-label">Q</span>
+        My content is accurate but it feels kind of dry. How do I make it more engaging without dumbing it down?
+        <span class="chevron">⌄</span>
+      </button>
+      <div class="faq-a">
+        <p>This is one of the hardest parts of science communication — and it's exactly what the project is designed to practice. A few things that tend to help:</p>
+        <ul class="checklist">
+          <li><strong>Lead with the misconception, not the science.</strong> "Did you know most people with chlamydia have zero symptoms?" lands differently than "Chlamydia is a common STI that is often asymptomatic."</li>
+          <li><strong>Use the second person.</strong> "You might assume..." or "Here's what that means for you" keeps the audience in the frame.</li>
+          <li><strong>Concrete numbers beat vague claims.</strong> "62% of sexually active students had never been tested" is more compelling than "many people don't get tested."</li>
+          <li><strong>End with something actionable.</strong> Your audience needs to know what to do with this information — not just that the problem exists.</li>
+        </ul>
+        <p>The goal is still to teach accurate science. The hook just determines whether anyone sticks around long enough to receive it.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<script>
+function toggle(btn) {
+  var answer = btn.nextElementSibling;
+  var isOpen = answer.classList.contains('visible');
+  if (isOpen) {
+    answer.classList.remove('visible');
+    btn.classList.remove('open');
+    btn.setAttribute('aria-expanded', 'false');
+  } else {
+    answer.classList.add('visible');
+    btn.classList.add('open');
+    btn.setAttribute('aria-expanded', 'true');
+  }
+}
+
+document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+  anchor.addEventListener('click', function(e) {
+    e.preventDefault();
+    var target = document.querySelector(this.getAttribute('href'));
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+});
+</script>
+
+</body>
+</html>
