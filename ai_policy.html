@@ -1,216 +1,505 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI Policy – PSY 466 Psychology of Sex</title>
+<title>AI policy — Sex in the Real World · PSY 466</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-  * { box-sizing: border-box; margin: 0; padding: 0; }
+/* ── Design tokens (inline — no external file needed for GitHub Pages) ── */
+:root {
+  --font-display: 'Bricolage Grotesque', system-ui, sans-serif;
+  --font-body:    'Atkinson Hyperlegible', system-ui, sans-serif;
+  --font-ui:      'Atkinson Hyperlegible', system-ui, sans-serif;
+  --font-mono:    'JetBrains Mono', ui-monospace, monospace;
 
-  body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    font-size: 16px;
-    line-height: 1.7;
-    color: #1a1a1a;
-    background: #fff;
-    max-width: 860px;
-    margin: 0 auto;
-    padding: 2rem 1.5rem 4rem;
+  --cream-50:  #fefcf9;
+  --cream-100: #fdf6f0;
+  --cream-200: #f8ede2;
+  --cream-300: #f0e0d1;
+  --cream-400: #e4cdb8;
+
+  --ink-900: #1c1917;
+  --ink-800: #292524;
+  --ink-700: #44403c;
+  --ink-600: #57534e;
+  --ink-500: #78716c;
+  --ink-400: #a8a29e;
+
+  --terracotta-800: #7c2d12;
+  --terracotta-700: #9a3412;
+  --terracotta-600: #c2410c;
+  --terracotta-500: #ea580c;
+  --terracotta-200: #fcd9c2;
+  --terracotta-100: #fdeae0;
+
+  --coral-400: #e8927c;
+  --coral-200: #f8d6cc;
+  --coral-100: #fbe7e1;
+
+  --plum-900: #4a1733;
+  --plum-800: #6b2348;
+  --plum-700: #883159;
+
+  --note-fg:   #1d4f91; --note-bg:   #e8f0fb; --note-border: #bcd4f0;
+  --tip-fg:    #3f6212; --tip-bg:    #edf4e3; --tip-border:  #cfe3b0;
+  --warn-fg:   #92400e; --warn-bg:   #fbeeda; --warn-border: #f3d9ad;
+  --term-fg:   #7c2d12; --term-bg:   #fdeae0; --term-border: #fcd9c2;
+  --danger-fg: #9f1239; --danger-bg: #fce7ec; --danger-border: #f6c2cf;
+
+  --bg:          var(--cream-100);
+  --bg-raised:   var(--cream-50);
+  --bg-inset:    var(--cream-200);
+  --bg-invert:   var(--plum-800);
+  --fg:          var(--ink-900);
+  --fg-secondary: var(--ink-700);
+  --fg-muted:    var(--ink-500);
+  --fg-onbrand:  #fffaf6;
+  --border:      var(--cream-300);
+  --border-strong: var(--cream-400);
+  --brand:       var(--terracotta-600);
+  --brand-text:  var(--terracotta-700);
+  --brand-hover: var(--terracotta-500);
+  --focus-ring:  #1d4f91;
+
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 14px;
+  --radius-pill: 999px;
+
+  --shadow-xs: 0 1px 2px rgba(60,30,15,0.06);
+  --shadow-sm: 0 1px 3px rgba(60,30,15,0.08), 0 1px 2px rgba(60,30,15,0.05);
+  --shadow-md: 0 4px 12px rgba(60,30,15,0.09), 0 2px 4px rgba(60,30,15,0.05);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
   }
+}
 
-  h1 { font-size: 24px; font-weight: 600; margin-bottom: 0.3rem; }
-  .subtitle { font-size: 15px; color: #666; margin-bottom: 2rem; padding-bottom: 1.5rem; border-bottom: 0.5px solid #ddd; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
 
-  /* Section headers */
-  .section { margin-bottom: 2.5rem; }
-  .section-header {
-    display: flex; align-items: center; gap: 12px;
-    margin-bottom: 1rem; padding-bottom: 0.6rem;
-    border-bottom: 0.5px solid #e0e0e0;
-  }
-  .section-num {
-    width: 28px; height: 28px; border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 13px; font-weight: 600; flex-shrink: 0;
-  }
-  .num-1 { background: #EEEDFE; color: #3C3489; }
-  .num-2 { background: #E1F5EE; color: #085041; }
-  .num-3 { background: #E6F1FB; color: #0C447C; }
-  .num-4 { background: #FAECE7; color: #712B13; }
-  .num-5 { background: #FAEEDA; color: #633806; }
-  .num-6 { background: #F3F3F0; color: #444; }
+html { font-size: 18px; }
 
-  .section-title { font-size: 18px; font-weight: 600; color: #1a1a1a; }
+body {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.65;
+  color: var(--fg);
+  background: var(--bg);
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 0 0 5rem;
+}
 
-  p { margin-bottom: 0.9rem; font-size: 15px; }
-  p:last-child { margin-bottom: 0; }
+:where(a, button, [tabindex]):focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
 
-  /* Principle box */
-  .principle-box {
-    background: #EEEDFE; border: 1px solid #C5C2F5;
-    border-radius: 12px; padding: 1.25rem 1.5rem; margin-bottom: 1.25rem;
-  }
-  .principle-box .p-label {
-    font-size: 11px; font-weight: 600; text-transform: uppercase;
-    letter-spacing: 0.06em; color: #5533BB; margin-bottom: 0.5rem;
-  }
-  .principle-box .p-rule {
-    font-size: 17px; font-weight: 600; color: #2A1E6E; line-height: 1.5;
-  }
+/* ── Page header (plum band) ── */
+.page-header {
+  background: var(--bg-invert);
+  padding: 2.25rem 2.25rem 2rem;
+  color: var(--fg-onbrand);
+}
+.eyebrow {
+  font-family: var(--font-ui);
+  font-weight: 700;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--coral-200);
+  margin-bottom: 0.6rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.eyebrow svg { width: 16px; height: 16px; flex-shrink: 0; }
+h1 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(1.5rem, 4vw, 2.2rem);
+  line-height: 1.15;
+  color: #fffaf6;
+  margin-bottom: 0.5rem;
+}
+.page-lead {
+  font-size: 0.95rem;
+  color: rgba(255,250,246,0.75);
+  max-width: 56ch;
+  line-height: 1.6;
+}
 
-  /* Callout boxes */
-  .tip { background: #E6F1FB; border: 0.5px solid #B5D4F4; border-radius: 8px; padding: 0.9rem 1.1rem; margin: 0.75rem 0; font-size: 14px; color: #0C447C; line-height: 1.6; }
-  .warn { background: #FAEEDA; border: 0.5px solid #FAC775; border-radius: 8px; padding: 0.9rem 1.1rem; margin: 0.75rem 0; font-size: 14px; color: #633806; line-height: 1.6; }
-  .firm { background: #FAECE7; border: 0.5px solid #F5A98A; border-radius: 8px; padding: 0.9rem 1.1rem; margin: 0.75rem 0; font-size: 14px; color: #712B13; line-height: 1.6; }
-  .tip strong, .warn strong, .firm strong { font-weight: 600; }
+/* ── Nav ── */
+.inner { padding: 0 2.25rem; }
+.nav-strip {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  padding: 1.5rem 2.25rem 0;
+  margin-bottom: 2rem;
+}
+.nav-pill {
+  font-family: var(--font-ui);
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 6px 14px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--border-strong);
+  background: var(--bg-raised);
+  color: var(--fg-secondary);
+  text-decoration: none;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+.nav-pill:hover { background: var(--terracotta-100); color: var(--brand-text); border-color: var(--terracotta-200); }
 
-  /* Example tables */
-  .ex-table { width: 100%; border-collapse: collapse; margin: 0.75rem 0; font-size: 13px; }
-  .ex-table th { background: #f0f0ee; text-align: left; padding: 7px 10px; font-weight: 600; color: #444; border: 0.5px solid #ddd; font-size: 12px; text-transform: uppercase; letter-spacing: 0.04em; }
-  .ex-table td { padding: 9px 10px; border: 0.5px solid #e4e4e4; vertical-align: top; line-height: 1.5; }
-  .ex-table tr.bad td { background: #FDF3F0; color: #712B13; }
-  .ex-table tr.bad td:first-child { font-weight: 600; color: #993C1D; }
-  .ex-table tr.good td { background: #F0FBF6; color: #085041; }
-  .ex-table tr.good td:first-child { font-weight: 600; color: #0F6E56; }
-  .ex-table tr.neutral td { background: #fafafa; }
+/* ── Section wrappers ── */
+.section { margin-bottom: 2.25rem; }
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border);
+}
+.section-num {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.8rem;
+  color: var(--fg-onbrand);
+  background: var(--bg-invert);
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.section-title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.2rem;
+  color: var(--fg);
+}
 
-  /* FAQ accordions */
-  .faq-item { margin-bottom: 0.75rem; border: 0.5px solid #e4e4e4; border-radius: 8px; overflow: hidden; }
-  .faq-q {
-    display: flex; align-items: flex-start; gap: 10px;
-    padding: 0.85rem 1rem; background: #fafafa;
-    cursor: pointer; font-size: 14px; font-weight: 500; color: #1a1a1a;
-    border: none; width: 100%; text-align: left; user-select: none;
-  }
-  .faq-q:hover { background: #f3f3f0; }
-  .faq-q .chevron { margin-left: auto; flex-shrink: 0; font-size: 18px; color: #aaa; transition: transform 0.2s; }
-  .faq-q.open .chevron { transform: rotate(180deg); }
-  .faq-a { display: none; padding: 1rem 1.1rem; font-size: 14px; line-height: 1.7; color: #333; border-top: 0.5px solid #e4e4e4; }
-  .faq-a.visible { display: block; }
-  .faq-a p { margin-bottom: 0.7rem; }
-  .faq-a p:last-child { margin-bottom: 0; }
+/* ── Principle box ── */
+.principle-box {
+  background: var(--terracotta-100);
+  border: 1px solid var(--terracotta-200);
+  border-radius: var(--radius-lg);
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 1.25rem;
+}
+.principle-box .eyebrow-sm {
+  font-family: var(--font-ui);
+  font-weight: 700;
+  font-size: 0.67rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--terracotta-700);
+  margin-bottom: 0.4rem;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.principle-box .eyebrow-sm svg { width: 14px; height: 14px; }
+.principle-box .rule {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: var(--terracotta-800);
+  line-height: 1.4;
+}
 
-  /* Permitted / Prohibited cards */
-  .card-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1rem 0; }
-  @media (max-width: 600px) { .card-grid { grid-template-columns: 1fr; } }
+/* ── Callout boxes ── */
+.callout {
+  display: flex; gap: 0.75rem;
+  padding: 0.9rem 1.1rem;
+  border-radius: var(--radius-md);
+  border: 1px solid;
+  margin: 0.75rem 0;
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+.callout svg { width: 20px; height: 20px; flex-shrink: 0; margin-top: 1px; }
+.callout .c-label {
+  font-family: var(--font-ui);
+  font-weight: 700;
+  font-size: 0.67rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  display: block;
+  margin-bottom: 2px;
+}
+.callout-tip  { background: var(--tip-bg);  border-color: var(--tip-border);  color: var(--tip-fg);  }
+.callout-warn { background: var(--warn-bg); border-color: var(--warn-border); color: var(--warn-fg); }
+.callout-note { background: var(--note-bg); border-color: var(--note-border); color: var(--note-fg); }
+.callout-req  { background: var(--danger-bg); border-color: var(--danger-border); color: var(--danger-fg); }
+.callout .c-body { color: var(--fg); }
 
-  .card {
-    border-radius: 10px; padding: 1rem 1.1rem;
-    border: 0.5px solid #ddd;
-  }
-  .card.permitted { background: #F0FBF6; border-color: #9FE1CB; }
-  .card.prohibited { background: #FDF3F0; border-color: #F5A98A; }
-  .card .card-label {
-    font-size: 11px; font-weight: 600; text-transform: uppercase;
-    letter-spacing: 0.06em; margin-bottom: 0.6rem;
-  }
-  .card.permitted .card-label { color: #0F6E56; }
-  .card.prohibited .card-label { color: #993C1D; }
-  .card ul { list-style: none; padding: 0; }
-  .card ul li { font-size: 13px; line-height: 1.55; margin-bottom: 0.4rem; padding-left: 1.2rem; position: relative; }
-  .card.permitted ul li::before { content: "✓"; position: absolute; left: 0; color: #0F6E56; font-weight: 600; }
-  .card.prohibited ul li::before { content: "✗"; position: absolute; left: 0; color: #993C1D; font-weight: 600; }
+/* ── Interactive checker ── */
+.checker {
+  background: var(--bg-raised);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  margin: 1rem 0;
+  box-shadow: var(--shadow-sm);
+}
+.checker-title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.05rem;
+  color: var(--fg);
+  margin-bottom: 0.2rem;
+}
+.checker-sub {
+  font-size: 0.83rem;
+  color: var(--fg-muted);
+  margin-bottom: 1.25rem;
+}
+.progress-dots { display: flex; gap: 6px; margin-bottom: 1.25rem; }
+.dot { width: 8px; height: 8px; border-radius: 50%; background: var(--cream-300); transition: background 0.2s; }
+.dot.active { background: var(--terracotta-600); }
+.dot.done { background: var(--tip-fg); }
 
-  /* Stage pills for SitRW section */
-  .stage-pill {
-    display: inline-block; font-size: 11px; font-weight: 600;
-    padding: 2px 9px; border-radius: 20px; margin-right: 6px; margin-bottom: 4px;
-    text-transform: uppercase; letter-spacing: 0.04em;
-  }
-  .sp-1 { background: #EEEDFE; color: #3C3489; }
-  .sp-2 { background: #E1F5EE; color: #085041; }
-  .sp-3 { background: #E6F1FB; color: #0C447C; }
-  .sp-4 { background: #FAEEDA; color: #633806; }
-  .sp-5 { background: #FAECE7; color: #712B13; }
+.q-step { display: none; }
+.q-step.active { display: block; }
+.q-text {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--fg);
+  margin-bottom: 1rem;
+  line-height: 1.45;
+}
+.q-options { display: flex; flex-direction: column; gap: 0.5rem; }
+.q-btn {
+  font-family: var(--font-ui);
+  font-weight: 700;
+  font-size: 0.875rem;
+  background: var(--bg);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-md);
+  padding: 0.75rem 1rem;
+  text-align: left;
+  cursor: pointer;
+  color: var(--fg);
+  transition: background 0.12s ease, border-color 0.12s ease;
+  line-height: 1.45;
+}
+.q-btn:hover { background: var(--terracotta-100); border-color: var(--terracotta-200); color: var(--terracotta-800); }
 
-  .sitrw-item {
-    border: 0.5px solid #e4e4e4; border-radius: 8px;
-    padding: 1rem 1.1rem; margin-bottom: 0.75rem;
-  }
-  .sitrw-item .si-stage { margin-bottom: 0.5rem; }
-  .sitrw-item .si-title { font-size: 14px; font-weight: 600; color: #1a1a1a; margin-bottom: 0.4rem; }
-  .sitrw-item .si-permitted { font-size: 13px; color: #085041; margin-bottom: 0.25rem; }
-  .sitrw-item .si-prohibited { font-size: 13px; color: #712B13; }
-  .sitrw-item .si-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 0.2rem; }
-  .si-p-label { color: #0F6E56; }
-  .si-x-label { color: #993C1D; }
+.verdict { display: none; border-radius: var(--radius-md); padding: 1.25rem 1.5rem; margin-top: 0.5rem; }
+.verdict.show { display: block; }
+.verdict-permitted { background: var(--tip-bg);    border: 1px solid var(--tip-border); }
+.verdict-prohibited { background: var(--danger-bg); border: 1px solid var(--danger-border); }
+.verdict-caution  { background: var(--warn-bg);   border: 1px solid var(--warn-border); }
+.verdict-label {
+  font-family: var(--font-ui);
+  font-weight: 700;
+  font-size: 0.67rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  display: flex; align-items: center; gap: 6px;
+  margin-bottom: 0.4rem;
+}
+.verdict-permitted  .verdict-label { color: var(--tip-fg); }
+.verdict-prohibited .verdict-label { color: var(--danger-fg); }
+.verdict-caution    .verdict-label { color: var(--warn-fg); }
+.verdict-label svg { width: 16px; height: 16px; }
+.verdict-title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+}
+.verdict-permitted  .verdict-title { color: var(--tip-fg); }
+.verdict-prohibited .verdict-title { color: var(--danger-fg); }
+.verdict-caution    .verdict-title { color: var(--warn-fg); }
+.verdict-body { font-size: 0.875rem; color: var(--fg); line-height: 1.65; }
+.restart-btn {
+  margin-top: 1rem;
+  font-family: var(--font-ui);
+  font-weight: 700;
+  font-size: 0.78rem;
+  background: transparent;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-md);
+  padding: 6px 14px;
+  cursor: pointer;
+  color: var(--fg-secondary);
+  transition: background 0.12s;
+  display: inline-flex; align-items: center; gap: 6px;
+}
+.restart-btn:hover { background: var(--cream-200); }
+.restart-btn svg { width: 14px; height: 14px; }
 
-  /* Disclosure sample */
-  .disclosure-sample {
-    background: #F7F7F5; border: 0.5px solid #ddd; border-radius: 8px;
-    padding: 1.1rem 1.25rem; margin: 0.75rem 0; font-size: 14px;
-    line-height: 1.7; color: #333; font-style: italic;
-  }
-  .disclosure-sample .ds-label {
-    font-size: 11px; font-weight: 600; text-transform: uppercase;
-    letter-spacing: 0.06em; color: #888; margin-bottom: 0.5rem;
-    font-style: normal;
-  }
+/* ── FAQ accordions ── */
+.faq-item {
+  margin-bottom: 0.6rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: var(--bg-raised);
+  box-shadow: var(--shadow-xs);
+  transition: border-color 0.15s;
+}
+.faq-item:has(.faq-a.visible) { border-color: var(--border-strong); }
+.faq-q {
+  display: flex; align-items: flex-start; gap: 0.6rem;
+  padding: 0.9rem 1.1rem;
+  background: transparent;
+  cursor: pointer;
+  font-family: var(--font-ui);
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--fg);
+  border: none; width: 100%; text-align: left;
+  line-height: 1.45;
+  transition: background 0.12s ease;
+}
+.faq-q:hover { background: var(--cream-200); }
+.q-label {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: var(--terracotta-700);
+  background: var(--terracotta-100);
+  border: 1px solid var(--terracotta-200);
+  border-radius: var(--radius-sm);
+  padding: 1px 7px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.chevron { margin-left: auto; flex-shrink: 0; transition: transform 0.18s ease; color: var(--fg-muted); }
+.chevron svg { width: 18px; height: 18px; display: block; }
+.faq-q.open .chevron { transform: rotate(180deg); }
+.faq-a {
+  display: none;
+  padding: 1rem 1.25rem;
+  font-size: 0.875rem;
+  line-height: 1.75;
+  color: var(--fg-secondary);
+  border-top: 1px solid var(--border);
+  background: var(--bg);
+}
+.faq-a.visible { display: block; animation: fadein 0.15s ease; }
+@keyframes fadein { from { opacity: 0; transform: translateY(-3px); } to { opacity: 1; transform: none; } }
+.faq-a p { margin-bottom: 0.7rem; }
+.faq-a p:last-child { margin-bottom: 0; }
+.faq-a strong { color: var(--fg); font-weight: 700; }
+.faq-a a { color: var(--brand-text); text-decoration: underline; text-underline-offset: 3px; text-decoration-color: var(--terracotta-200); transition: text-decoration-color 0.15s; }
+.faq-a a:hover { text-decoration-color: currentColor; }
 
-  /* Disclosure checklist */
-  .checklist { list-style: none; padding: 0; margin: 0.5rem 0; }
-  .checklist li { display: flex; align-items: flex-start; gap: 8px; font-size: 14px; margin-bottom: 0.5rem; line-height: 1.55; }
-  .checklist li::before { content: "☐"; flex-shrink: 0; font-size: 15px; color: #aaa; margin-top: -1px; }
+/* ── Permitted / Prohibited item blocks ── */
+.use-item {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 1rem 1.1rem;
+  margin-bottom: 0.6rem;
+  background: var(--bg-raised);
+  box-shadow: var(--shadow-xs);
+}
+.use-item .ui-stage {
+  margin-bottom: 0.4rem;
+}
+.use-item .ui-title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--fg);
+  margin-bottom: 0.3rem;
+}
+.use-item .ui-label {
+  font-family: var(--font-ui);
+  font-weight: 700;
+  font-size: 0.67rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.2rem;
+  color: var(--tip-fg);
+}
+.use-item .ui-body { font-size: 0.83rem; color: var(--fg-secondary); line-height: 1.65; }
 
-  /* Interactive checker */
-  #checker { background: #F7F7F5; border: 0.5px solid #ddd; border-radius: 12px; padding: 1.5rem; margin: 1rem 0; }
-  #checker h3 { font-size: 16px; font-weight: 600; margin-bottom: 0.3rem; }
-  #checker .checker-sub { font-size: 13px; color: #666; margin-bottom: 1.25rem; }
+/* ── Example table ── */
+.ex-table { width: 100%; border-collapse: collapse; font-size: 0.83rem; margin: 0.75rem 0; }
+.ex-table th { background: var(--bg-inset); text-align: left; padding: 8px 12px; font-family: var(--font-ui); font-weight: 700; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.07em; color: var(--fg-secondary); border: 1px solid var(--border); }
+.ex-table td { padding: 9px 12px; border: 1px solid var(--border); vertical-align: top; line-height: 1.55; }
+.ex-table tr.bad td { background: var(--danger-bg); color: var(--danger-fg); }
+.ex-table tr.bad td:first-child { font-weight: 700; }
+.ex-table tr.neutral td { background: var(--bg-raised); color: var(--fg-secondary); }
 
-  .q-step { display: none; }
-  .q-step.active { display: block; }
+/* ── Stage badge pills ── */
+.pill {
+  display: inline-block;
+  font-family: var(--font-ui);
+  font-weight: 700;
+  font-size: 0.67rem;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  padding: 3px 10px;
+  border-radius: var(--radius-pill);
+  border: 1px solid;
+}
+.pill-brand { background: var(--terracotta-100); color: var(--terracotta-700); border-color: var(--terracotta-200); }
+.pill-muted { background: var(--cream-200); color: var(--ink-600); border-color: var(--cream-400); }
 
-  .q-step .q-text { font-size: 15px; font-weight: 500; color: #1a1a1a; margin-bottom: 1rem; line-height: 1.5; }
+/* ── Checklist ── */
+.checklist { list-style: none; padding: 0; margin: 0.5rem 0; }
+.checklist li { display: flex; align-items: flex-start; gap: 0.5rem; font-size: 0.875rem; margin-bottom: 0.45rem; line-height: 1.6; color: var(--fg-secondary); }
+.checklist li svg { width: 16px; height: 16px; flex-shrink: 0; color: var(--terracotta-600); margin-top: 3px; }
 
-  .q-options { display: flex; flex-direction: column; gap: 0.5rem; }
-  .q-btn {
-    background: #fff; border: 0.5px solid #ccc; border-radius: 8px;
-    padding: 0.75rem 1rem; font-size: 14px; text-align: left;
-    cursor: pointer; color: #1a1a1a; transition: background 0.15s, border-color 0.15s;
-    line-height: 1.45;
-  }
-  .q-btn:hover { background: #EEEDFE; border-color: #C5C2F5; color: #2A1E6E; }
+/* ── Disclosure sample ── */
+.disclosure-box {
+  background: var(--bg-inset);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-md);
+  padding: 1.1rem 1.25rem;
+  margin: 0.75rem 0;
+  font-style: italic;
+  font-size: 0.875rem;
+  color: var(--fg-secondary);
+  line-height: 1.7;
+}
+.disclosure-box .d-label {
+  font-family: var(--font-ui);
+  font-weight: 700;
+  font-size: 0.67rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--fg-muted);
+  margin-bottom: 0.5rem;
+  display: block;
+  font-style: normal;
+}
 
-  .verdict { display: none; border-radius: 10px; padding: 1.25rem 1.5rem; margin-top: 0.5rem; }
-  .verdict.permitted-v { background: #E1F5EE; border: 1px solid #9FE1CB; }
-  .verdict.prohibited-v { background: #FAECE7; border: 1px solid #F5A98A; }
-  .verdict.ask-v { background: #FAEEDA; border: 1px solid #FAC775; }
-  .verdict.show { display: block; }
-
-  .verdict .v-icon { font-size: 24px; margin-bottom: 0.4rem; }
-  .verdict .v-title { font-size: 16px; font-weight: 700; margin-bottom: 0.4rem; }
-  .verdict.permitted-v .v-title { color: #085041; }
-  .verdict.prohibited-v .v-title { color: #712B13; }
-  .verdict.ask-v .v-title { color: #633806; }
-  .verdict .v-body { font-size: 14px; line-height: 1.6; }
-  .verdict.permitted-v .v-body { color: #085041; }
-  .verdict.prohibited-v .v-body { color: #712B13; }
-  .verdict.ask-v .v-body { color: #633806; }
-
-  .restart-btn {
-    margin-top: 1rem; background: #fff; border: 0.5px solid #ccc;
-    border-radius: 8px; padding: 0.5rem 1rem; font-size: 13px;
-    cursor: pointer; color: #555;
-  }
-  .restart-btn:hover { background: #f3f3f0; }
-
-  .progress-dots { display: flex; gap: 6px; margin-bottom: 1.25rem; }
-  .dot { width: 8px; height: 8px; border-radius: 50%; background: #ddd; transition: background 0.2s; }
-  .dot.active { background: #7F77DD; }
-  .dot.done { background: #9FE1CB; }
-
-  /* Nav */
-  .nav-strip { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 2rem; }
-  .nav-pill { font-size: 13px; padding: 5px 13px; border-radius: 20px; border: 0.5px solid #ddd; background: #fff; color: #444; cursor: pointer; text-decoration: none; transition: background 0.15s; }
-  .nav-pill:hover { background: #f0f0ee; }
+/* ── Body text ── */
+.prose p { font-size: 0.94rem; color: var(--fg-secondary); margin-bottom: 0.9rem; line-height: 1.7; }
+.prose p:last-child { margin-bottom: 0; }
+.prose strong { color: var(--fg); font-weight: 700; }
+.prose a { color: var(--brand-text); text-decoration: underline; text-underline-offset: 3px; }
 </style>
 </head>
 <body>
 
-<h1>AI Policy – What You Can, Can't, and Should Do</h1>
-<p class="subtitle">PSY 466 – Psychology of Sex &nbsp;|&nbsp; Dr. Martini &nbsp;|&nbsp; A practical guide to using AI in this course</p>
+<!-- ── Page header ── -->
+<header class="page-header">
+  <p class="eyebrow">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9h6M9 12h6M9 15h4"/></svg>
+    PSY 466 · Dr. Martini · Course policy
+  </p>
+  <h1>AI policy — What you can, can't, & should do</h1>
+  <p class="page-lead">A practical guide to using AI tools in this course — including the Sex in the Real World project.</p>
+</header>
 
-<nav class="nav-strip">
+<!-- ── Nav ── -->
+<nav class="nav-strip" aria-label="Jump to section">
   <a class="nav-pill" href="#principle">The core rule</a>
   <a class="nav-pill" href="#checker">Can I use AI for this?</a>
   <a class="nav-pill" href="#permitted">Permitted uses</a>
@@ -219,384 +508,312 @@
   <a class="nav-pill" href="#consequences">Consequences</a>
 </nav>
 
+<div class="inner">
 
-<!-- SECTION 1: GUIDING PRINCIPLE -->
+<!-- ── Section 1: Core rule ── -->
 <section class="section" id="principle">
   <div class="section-header">
-    <div class="section-num num-1">1</div>
-    <span class="section-title">The core rule</span>
+    <div class="section-num" aria-hidden="true">1</div>
+    <h2 class="section-title">The core rule</h2>
   </div>
-
   <div class="principle-box">
-    <div class="p-label">Guiding Principle</div>
-    <div class="p-rule">AI may be used as a creative production tool, but not as a substitute for your own learning, reading, analysis, synthesis, or communication of course material.</div>
+    <div class="eyebrow-sm">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+      Guiding principle
+    </div>
+    <p class="rule">AI may be used as a creative production tool, but not as a substitute for your own learning, reading, analysis, synthesis, or communication of course material.</p>
   </div>
-
-  <p>Put even more simply: <strong>AI can help you make it look good. It cannot do the thinking for you.</strong></p>
-
-  <p>In this course you are responsible for understanding the science, selecting your sources, reading and evaluating those sources, and deciding what to communicate to your audience. Those are the parts that actually teach you something — and they are the parts AI is not allowed to replace.</p>
-
-  <p>Where AI earns its place in this course is on the creative and production side of the Sex in the Real World project: generating images, suggesting visual layouts, refining how your already-written content looks and feels. That's a legitimate use of the tool. Using it to find your articles, summarize your research, or write your project description is not.</p>
-
-  <div class="tip"><strong>The test to apply in the moment:</strong> If you removed the AI's contribution, would you still have done the intellectual work of the assignment? If yes, you're probably fine. If no — if AI did the thinking, the reading, or the explaining — that's a problem.</div>
+  <div class="prose">
+    <p>Put more simply: <strong>AI can help you make it look good. It cannot do the thinking for you.</strong></p>
+    <p>You are responsible for understanding the science, selecting your sources, reading and evaluating those sources, and deciding what to communicate to your audience. Those are the parts that actually teach you something — and they are the parts AI is not allowed to replace.</p>
+    <p>Where AI earns its place in this course is on the creative and production side of the Sex in the Real World project: generating images, suggesting visual layouts, refining how your already-written content looks and feels. Using it to find your articles, summarize your research, or write your project description is not permitted.</p>
+  </div>
+  <div class="callout callout-tip">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2a7 7 0 0 1 7 7c0 2.5-1.5 4.5-3 6l-1 3H9l-1-3c-1.5-1.5-3-3.5-3-6a7 7 0 0 1 7-7z"/><path d="M9 21h6"/></svg>
+    <div>
+      <span class="c-label">The test to apply in the moment</span>
+      <span class="c-body">If you removed AI's contribution, would you still have done the intellectual work of the assignment? If yes, you're probably fine. If no — if AI did the thinking, the reading, or the explaining — that's a problem.</span>
+    </div>
+  </div>
 </section>
 
-
-<!-- SECTION 2: INTERACTIVE CHECKER -->
-<section class="section" id="checker-section">
+<!-- ── Section 2: Interactive checker ── -->
+<section class="section" id="checker">
   <div class="section-header">
-    <div class="section-num num-2">2</div>
-    <span class="section-title">Can I use AI for this?</span>
+    <div class="section-num" aria-hidden="true">2</div>
+    <h2 class="section-title">Can I use AI for this?</h2>
   </div>
+  <div class="prose"><p>Not sure whether a specific use is permitted? Work through the checker below.</p></div>
 
-  <p>Not sure whether a specific use is permitted? Work through the checker below.</p>
-
-  <div id="checker">
-    <h3>AI Use Checker</h3>
+  <div class="checker">
+    <p class="checker-title">AI use checker</p>
     <p class="checker-sub">Answer a few quick questions to get a verdict for your situation.</p>
-
-    <div class="progress-dots">
+    <div class="progress-dots" role="status" aria-live="polite" aria-label="Step progress">
       <div class="dot active" id="dot-0"></div>
       <div class="dot" id="dot-1"></div>
       <div class="dot" id="dot-2"></div>
     </div>
 
-    <!-- Q1 -->
     <div class="q-step active" id="step-0">
-      <div class="q-text">What type of assignment are you working on?</div>
+      <p class="q-text">What type of assignment are you working on?</p>
       <div class="q-options">
-        <button class="q-btn" onclick="answer(0, 'quiz')">A reading quiz or lecture video question</button>
-        <button class="q-btn" onclick="answer(0, 'sitrw-content')">The Sex in the Real World project — content, research, or writing</button>
-        <button class="q-btn" onclick="answer(0, 'sitrw-creative')">The Sex in the Real World project — visuals, design, or creative production</button>
-        <button class="q-btn" onclick="answer(0, 'other-writing')">A discussion post, reflection, or other written assignment</button>
+        <button class="q-btn" onclick="answer(0,'quiz')">A reading quiz or lecture video question</button>
+        <button class="q-btn" onclick="answer(0,'sitrw-content')">Sex in the Real World — content, research, or writing</button>
+        <button class="q-btn" onclick="answer(0,'sitrw-creative')">Sex in the Real World — visuals, design, or creative production</button>
+        <button class="q-btn" onclick="answer(0,'other-writing')">A discussion post, reflection, or other written assignment</button>
       </div>
     </div>
-
-    <!-- Q2a: quiz path -->
     <div class="q-step" id="step-quiz">
-      <div class="q-text">Are you using AI to help you understand a concept you're confused about, or to generate answers to submit?</div>
+      <p class="q-text">How are you using AI with this quiz or lecture video?</p>
       <div class="q-options">
-        <button class="q-btn" onclick="answer(1, 'quiz-understand')">To understand something I'm confused about — not to submit</button>
-        <button class="q-btn" onclick="answer(1, 'quiz-answers')">To get answers I can submit or use on the quiz</button>
+        <button class="q-btn" onclick="answer(1,'quiz-understand')">To understand a concept I'm confused about — not to submit anything</button>
+        <button class="q-btn" onclick="answer(1,'quiz-answers')">To generate answers I can submit or use on the quiz</button>
       </div>
     </div>
-
-    <!-- Q2b: sitrw creative path -->
     <div class="q-step" id="step-creative">
-      <div class="q-text">What specifically are you using AI for?</div>
+      <p class="q-text">What specifically are you using AI for?</p>
       <div class="q-options">
-        <button class="q-btn" onclick="answer(1, 'creative-image')">Generating images, illustrations, or background visuals</button>
-        <button class="q-btn" onclick="answer(1, 'creative-layout')">Suggesting layout, design, or infographic structure</button>
-        <button class="q-btn" onclick="answer(1, 'creative-caption')">Helping polish captions or hooks — based on content I already wrote</button>
-        <button class="q-btn" onclick="answer(1, 'creative-script')">Writing or generating the script, captions, or slide text for me</button>
+        <button class="q-btn" onclick="answer(1,'creative-image')">Generating images, illustrations, or background visuals</button>
+        <button class="q-btn" onclick="answer(1,'creative-layout')">Suggesting layout, design, or infographic structure</button>
+        <button class="q-btn" onclick="answer(1,'creative-caption')">Polishing captions or hooks — based on content I already wrote</button>
+        <button class="q-btn" onclick="answer(1,'creative-script')">Writing or generating the script, captions, or slide text for me</button>
       </div>
     </div>
-
-    <!-- Q2c: sitrw content path -->
     <div class="q-step" id="step-content">
-      <div class="q-text">What specifically are you using AI for?</div>
+      <p class="q-text">What specifically are you using AI for?</p>
       <div class="q-options">
-        <button class="q-btn" onclick="answer(1, 'content-topic')">Selecting or suggesting my topic</button>
-        <button class="q-btn" onclick="answer(1, 'content-articles')">Finding or summarizing my empirical articles</button>
-        <button class="q-btn" onclick="answer(1, 'content-writing')">Writing or rewriting my project description</button>
-        <button class="q-btn" onclick="answer(1, 'content-grammar')">Checking grammar or clarity in writing I already produced</button>
+        <button class="q-btn" onclick="answer(1,'content-topic')">Selecting or suggesting my topic</button>
+        <button class="q-btn" onclick="answer(1,'content-articles')">Finding or summarizing my empirical articles</button>
+        <button class="q-btn" onclick="answer(1,'content-writing')">Writing or rewriting my project description</button>
+        <button class="q-btn" onclick="answer(1,'content-grammar')">Checking grammar or clarity in writing I already produced</button>
       </div>
     </div>
-
-    <!-- Q2d: other writing path -->
     <div class="q-step" id="step-writing">
-      <div class="q-text">How are you using AI in this written assignment?</div>
+      <p class="q-text">How are you using AI in this written assignment?</p>
       <div class="q-options">
-        <button class="q-btn" onclick="answer(1, 'writing-generate')">To generate, draft, or substantially rewrite the content</button>
-        <button class="q-btn" onclick="answer(1, 'writing-grammar')">To check grammar or spelling in something I already wrote</button>
-        <button class="q-btn" onclick="answer(1, 'writing-study')">To generate practice questions or flashcards for studying</button>
+        <button class="q-btn" onclick="answer(1,'writing-generate')">To generate, draft, or substantially rewrite the content</button>
+        <button class="q-btn" onclick="answer(1,'writing-grammar')">To check grammar or spelling in something I already wrote</button>
+        <button class="q-btn" onclick="answer(1,'writing-study')">To generate practice questions or flashcards for studying</button>
       </div>
     </div>
 
     <!-- Verdicts -->
-    <div class="verdict permitted-v" id="v-permitted-creative">
-      <div class="v-icon">✓</div>
-      <div class="v-title">Permitted — with disclosure</div>
-      <div class="v-body">This is a legitimate creative/production use of AI. Go ahead — but you must disclose it in your final reflection. Note which tool you used, what you used it for, and what parts of the project you completed yourself. See Section 5 for exactly what that disclosure needs to include.</div>
-      <button class="restart-btn" onclick="restart()">← Check another use</button>
+    <div class="verdict verdict-permitted" id="v-permitted-creative">
+      <div class="verdict-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Permitted</div>
+      <p class="verdict-title">Go ahead — and disclose it</p>
+      <p class="verdict-body">This is a legitimate creative/production use of AI. You may proceed — but you must disclose it in your final reflection. Note which tool you used, what you used it for, and what parts of the project you completed yourself. See Section 5 for exactly what that disclosure needs to include.</p>
+      <button class="restart-btn" onclick="restart()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>Check another use</button>
     </div>
-
-    <div class="verdict permitted-v" id="v-permitted-grammar">
-      <div class="v-icon">✓</div>
-      <div class="v-title">Permitted</div>
-      <div class="v-body">Using AI to check grammar or spelling in writing you already produced is fine. Just make sure the tool isn't substantially rewriting your sentences — if you paste a paragraph in and get a different paragraph back, that crosses into prohibited territory. If you used it for the SitRW project, disclose it.</div>
-      <button class="restart-btn" onclick="restart()">← Check another use</button>
+    <div class="verdict verdict-permitted" id="v-permitted-grammar">
+      <div class="verdict-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Permitted</div>
+      <p class="verdict-title">Fine — with one caveat</p>
+      <p class="verdict-body">Using AI to check grammar or spelling in writing you've already produced is permitted. Just make sure the tool isn't substantially rewriting your sentences. If you paste a paragraph in and get a different paragraph back, that crosses into prohibited territory. If you used it for the SitRW project, disclose it.</p>
+      <button class="restart-btn" onclick="restart()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>Check another use</button>
     </div>
-
-    <div class="verdict permitted-v" id="v-permitted-study">
-      <div class="v-icon">✓</div>
-      <div class="v-title">Permitted</div>
-      <div class="v-body">Generating practice questions or flashcards for your own studying is a legitimate use. Just don't use AI to generate answers you then submit — that defeats the purpose of the quiz and cheats you out of actually learning the material.</div>
-      <button class="restart-btn" onclick="restart()">← Check another use</button>
+    <div class="verdict verdict-permitted" id="v-permitted-study">
+      <div class="verdict-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Permitted</div>
+      <p class="verdict-title">A legitimate study tool</p>
+      <p class="verdict-body">Generating practice questions or flashcards for your own studying is fine. Just never use AI to generate answers you then submit — that defeats the purpose of the assignment and cheats you out of learning the material.</p>
+      <button class="restart-btn" onclick="restart()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>Check another use</button>
     </div>
-
-    <div class="verdict permitted-v" id="v-permitted-understand">
-      <div class="v-icon">✓</div>
-      <div class="v-title">Permitted — with caution</div>
-      <div class="v-body">Using AI to help you understand a concept you're confused about is fine — that's not much different from Googling something. But be careful: AI can produce confident-sounding but inaccurate information, especially on nuanced scientific topics. If something AI tells you conflicts with the textbook or lecture, trust the course material. And never submit AI-generated answers as your own work.</div>
-      <button class="restart-btn" onclick="restart()">← Check another use</button>
+    <div class="verdict verdict-caution" id="v-permitted-understand">
+      <div class="verdict-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4M12 17h.01"/></svg>Permitted — with caution</div>
+      <p class="verdict-title">Fine for your own understanding, not for submitting</p>
+      <p class="verdict-body">Using AI to help you understand a concept is fine — it's not much different from Googling something. But be careful: AI can produce confident-sounding but inaccurate information, especially on nuanced scientific topics. If something AI tells you conflicts with the textbook or lecture, trust the course material. Never submit AI-generated answers as your own work.</p>
+      <button class="restart-btn" onclick="restart()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>Check another use</button>
     </div>
-
-    <div class="verdict prohibited-v" id="v-prohibited-quiz">
-      <div class="v-icon">✗</div>
-      <div class="v-title">Not permitted</div>
-      <div class="v-body">Using AI to generate answers for reading quizzes or lecture video questions is academic misconduct. Beyond the policy violation, it also just cheats you — these assignments exist to help you actually learn the material before you need to apply it in the SitRW project and in life. If you're struggling with the content, reach out to Dr. M. or use the tutoring resources listed in the syllabus.</div>
-      <button class="restart-btn" onclick="restart()">← Check another use</button>
+    <div class="verdict verdict-prohibited" id="v-prohibited-quiz">
+      <div class="verdict-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>Not permitted</div>
+      <p class="verdict-title">This is academic misconduct</p>
+      <p class="verdict-body">Using AI to generate answers for reading quizzes or lecture video questions is not permitted. Beyond the policy violation, it also cheats you — these assignments build the foundation you need for the SitRW project. Students who bypass them consistently struggle with the project later. If you're struggling with the content, reach out to Dr. M. or use the tutoring resources in the syllabus.</p>
+      <button class="restart-btn" onclick="restart()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>Check another use</button>
     </div>
-
-    <div class="verdict prohibited-v" id="v-prohibited-content">
-      <div class="v-icon">✗</div>
-      <div class="v-title">Not permitted</div>
-      <div class="v-body">This is the intellectual core of the SitRW project — and it's exactly what AI is not allowed to do for you. You must personally choose your topic, find and read your empirical articles, understand what they found, identify the misconceptions your audience holds, and decide what science to communicate. Submitting AI-generated content as your own work in these areas is academic misconduct.</div>
-      <button class="restart-btn" onclick="restart()">← Check another use</button>
+    <div class="verdict verdict-prohibited" id="v-prohibited-content">
+      <div class="verdict-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>Not permitted</div>
+      <p class="verdict-title">This is the intellectual core of the project</p>
+      <p class="verdict-body">You must personally choose your topic, find and read your empirical articles, understand what they found, identify the misconceptions your audience holds, and decide what science to communicate. AI may not do any of this work for you. Submitting AI-generated content as your own work in these areas is academic misconduct.</p>
+      <button class="restart-btn" onclick="restart()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>Check another use</button>
     </div>
-
-    <div class="verdict prohibited-v" id="v-prohibited-writing">
-      <div class="v-icon">✗</div>
-      <div class="v-title">Not permitted</div>
-      <div class="v-body">AI may not write, draft, or substantially rewrite your discussion posts, reflections, or other written assignments. These are your words and your thinking — not AI's. Submitting AI-generated text as your own work is academic misconduct regardless of how much you edited it afterward.</div>
-      <button class="restart-btn" onclick="restart()">← Check another use</button>
+    <div class="verdict verdict-prohibited" id="v-prohibited-writing">
+      <div class="verdict-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>Not permitted</div>
+      <p class="verdict-title">Your words, your thinking</p>
+      <p class="verdict-body">AI may not write, draft, or substantially rewrite your discussion posts, reflections, or other written assignments. Submitting AI-generated text as your own work is academic misconduct regardless of how much you edited it afterward.</p>
+      <button class="restart-btn" onclick="restart()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>Check another use</button>
     </div>
-
-    <div class="verdict prohibited-v" id="v-prohibited-script">
-      <div class="v-icon">✗</div>
-      <div class="v-title">Not permitted</div>
-      <div class="v-body">The script, captions, and slide text are the educational content of your project — they need to come from you and your sources. AI may help you refine the presentation style of content you've already written, but it may not generate the content itself. If AI wrote your script, the project doesn't represent your understanding of the science.</div>
-      <button class="restart-btn" onclick="restart()">← Check another use</button>
+    <div class="verdict verdict-prohibited" id="v-prohibited-script">
+      <div class="verdict-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>Not permitted</div>
+      <p class="verdict-title">The script is the educational content</p>
+      <p class="verdict-body">The script, captions, and slide text are the educational content of your project — they need to come from you and your sources. AI may help you refine the presentation style of content you've already written, but it may not generate the content itself. If AI wrote your script, the project doesn't represent your understanding of the science.</p>
+      <button class="restart-btn" onclick="restart()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>Check another use</button>
     </div>
-
-    <div class="verdict ask-v" id="v-ask">
-      <div class="v-icon">?</div>
-      <div class="v-title">Ask first</div>
-      <div class="v-body">This one is worth checking with Dr. M. before you proceed. The policy says "when in doubt, ask before using AI" — a misunderstanding doesn't excuse a violation, so it's always better to get clarification in advance. Email or message Dr. M. with a quick description of what you're planning to use AI for.</div>
-      <button class="restart-btn" onclick="restart()">← Check another use</button>
-    </div>
-
   </div>
 </section>
 
-
-<!-- SECTION 3: PERMITTED USES -->
+<!-- ── Section 3: Permitted uses ── -->
 <section class="section" id="permitted">
   <div class="section-header">
-    <div class="section-num num-3">3</div>
-    <span class="section-title">Permitted uses — and how AI can actually help you</span>
+    <div class="section-num" aria-hidden="true">3</div>
+    <h2 class="section-title">Permitted uses — and how AI can actually help you</h2>
   </div>
+  <div class="prose"><p>Here's where AI can genuinely make your work better — specifically on the creative and production side of the Sex in the Real World project.</p></div>
 
-  <p>Here's where AI can genuinely make your work better — specifically on the creative and production side of the Sex in the Real World project.</p>
-
-  <div class="sitrw-item">
-    <div class="si-stage"><span class="stage-pill sp-5">Final Social Media Campaign Submission</span></div>
-    <div class="si-title">Generating images and visual elements</div>
-    <div class="si-label si-p-label">What this looks like in practice</div>
-    <div class="si-permitted">Use tools like DALL-E, Adobe Firefly, Midjourney, or Canva AI to generate background images, illustrations, icons, or infographic templates. For example: "generate a warm, non-clinical illustration of two people having a conversation" as a background for your first TikTok slide. The image serves your message — you're not asking AI to create the message.</div>
+  <div class="use-item">
+    <div class="ui-stage"><span class="pill pill-brand">Final Social Media Campaign Submission</span></div>
+    <p class="ui-title">Generating images and visual elements</p>
+    <div class="ui-label">What this looks like in practice</div>
+    <p class="ui-body">Use tools like DALL-E, Adobe Firefly, Midjourney, or Canva AI to generate background images, illustrations, icons, or infographic templates. For example: generate a warm, non-clinical illustration of two people having a conversation as a background for your first TikTok slide. The image serves your message — you're not asking AI to create the message.</p>
   </div>
-
-  <div class="sitrw-item">
-    <div class="si-stage"><span class="stage-pill sp-5">Final Social Media Campaign Submission</span></div>
-    <div class="si-title">Suggesting layout and design structure</div>
-    <div class="si-label si-p-label">What this looks like in practice</div>
-    <div class="si-permitted">Ask AI to suggest infographic layouts, color schemes, font pairings, or slide structures. For example: "I have five key facts about chlamydia transmission — what Instagram carousel layout would work well for a teen audience?" You decide which suggestions to use. You're still driving the content and the decisions.</div>
+  <div class="use-item">
+    <div class="ui-stage"><span class="pill pill-brand">Final Social Media Campaign Submission</span></div>
+    <p class="ui-title">Suggesting layout and design structure</p>
+    <div class="ui-label">What this looks like in practice</div>
+    <p class="ui-body">Ask AI to suggest infographic layouts, color schemes, font pairings, or slide structures. For example: "I have five key facts about chlamydia transmission — what Instagram carousel layout would work well for a teen audience?" You decide which suggestions to use. You're still driving the content and the decisions.</p>
   </div>
-
-  <div class="sitrw-item">
-    <div class="si-stage"><span class="stage-pill sp-5">Final Social Media Campaign Submission</span></div>
-    <div class="si-title">Polishing captions and hooks</div>
-    <div class="si-label si-p-label">What this looks like in practice</div>
-    <div class="si-permitted">After you've written your caption or hook, you can ask AI to suggest ways to make it more engaging for a teen audience — as long as the scientific content, the core message, and the source selection all came from you. Think of it like asking a friend to read your caption and suggest whether it sounds natural. The ideas are still yours.</div>
+  <div class="use-item">
+    <div class="ui-stage"><span class="pill pill-brand">Final Social Media Campaign Submission</span></div>
+    <p class="ui-title">Polishing captions and hooks</p>
+    <div class="ui-label">What this looks like in practice</div>
+    <p class="ui-body">After you've written your caption or hook, you can ask AI to suggest ways to make it more engaging for a teen audience — as long as the scientific content, the core message, and the source selection all came from you. Think of it like asking a friend to read your caption and suggest whether it sounds natural.</p>
   </div>
-
-  <div class="sitrw-item">
-    <div class="si-stage"><span class="stage-pill sp-1">All stages</span></div>
-    <div class="si-title">Grammar and spelling checks</div>
-    <div class="si-label si-p-label">What this looks like in practice</div>
-    <div class="si-permitted">Basic grammar and spell checking in writing you've already produced is fine — in any assignment. The line is whether AI is correcting your errors or rewriting your sentences. If your paragraph comes back substantially different, that's rewriting, not editing.</div>
+  <div class="use-item">
+    <div class="ui-stage"><span class="pill pill-muted">All stages</span></div>
+    <p class="ui-title">Grammar and spelling checks</p>
+    <div class="ui-label">What this looks like in practice</div>
+    <p class="ui-body">Basic grammar and spell checking in writing you've already produced is fine — in any assignment. The line is whether AI is correcting your errors or rewriting your sentences. If your paragraph comes back substantially different, that's rewriting, not editing.</p>
   </div>
-
-  <div class="sitrw-item">
-    <div class="si-stage"><span class="stage-pill sp-1">Studying</span></div>
-    <div class="si-title">Generating practice questions for studying</div>
-    <div class="si-label si-p-label">What this looks like in practice</div>
-    <div class="si-permitted">Ask AI to generate practice questions based on a chapter summary or concept you're reviewing. This is a legitimate study tool. Just never use it to generate answers you then submit — that defeats the whole purpose.</div>
+  <div class="use-item">
+    <div class="ui-stage"><span class="pill pill-muted">Studying</span></div>
+    <p class="ui-title">Generating practice questions for studying</p>
+    <div class="ui-label">What this looks like in practice</div>
+    <p class="ui-body">Ask AI to generate practice questions based on a chapter summary or concept you're reviewing. This is a legitimate study tool. Never use it to generate answers you then submit — that defeats the whole purpose.</p>
   </div>
-
-  <div class="tip"><strong>Remember:</strong> Any AI use on the SitRW project — even permitted use — requires disclosure in your final reflection. See Section 5.</div>
+  <div class="callout callout-tip">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2a7 7 0 0 1 7 7c0 2.5-1.5 4.5-3 6l-1 3H9l-1-3c-1.5-1.5-3-3.5-3-6a7 7 0 0 1 7-7z"/><path d="M9 21h6"/></svg>
+    <div><span class="c-label">Remember</span><span class="c-body">Any AI use on the SitRW project — even permitted use — requires disclosure in your final reflection. See Section 5.</span></div>
+  </div>
 </section>
 
-
-<!-- SECTION 4: PROHIBITED USES -->
+<!-- ── Section 4: Prohibited uses ── -->
 <section class="section" id="prohibited">
   <div class="section-header">
-    <div class="section-num num-4">4</div>
-    <span class="section-title">Prohibited uses</span>
+    <div class="section-num" aria-hidden="true">4</div>
+    <h2 class="section-title">Prohibited uses</h2>
   </div>
-
-  <p>These are the uses that cross the line — either because they replace your thinking, or because they undermine the learning the assignment is designed to produce.</p>
+  <div class="prose"><p>These are the uses that cross the line — either because they replace your thinking, or because they undermine the learning the assignment is designed to produce.</p></div>
 
   <table class="ex-table">
-    <thead>
-      <tr><th style="width:35%">What you might be tempted to do</th><th>Why it's a problem</th></tr>
-    </thead>
+    <thead><tr><th style="width:38%">What you might be tempted to do</th><th>Why it's a problem</th></tr></thead>
     <tbody>
-      <tr class="bad"><td>Use AI to answer reading quiz or lecture video questions</td><td>These assignments build the foundation you need for the SitRW project. Bypassing them doesn't just violate policy — it leaves you without the knowledge you need to do the rest of the course well. You're cheating yourself more than anything.</td></tr>
-      <tr class="bad"><td>Ask AI to suggest or select your SitRW topic</td><td>Topic selection is the first genuine intellectual decision of the project. It requires you to think about what you care about, what the science supports, and what your audience needs. AI can't do that for you.</td></tr>
-      <tr class="bad"><td>Use AI to find, screen, or summarize your empirical articles</td><td>AI frequently hallucinates sources — it invents citations that look real but don't exist. Beyond that, reading your articles yourself is the only way to actually understand the science you're supposed to be communicating.</td></tr>
-      <tr class="bad"><td>Ask AI to write or rewrite your project description</td><td>The project description is where you demonstrate that you understand your research, your audience, and your approach. If AI writes it, there's nothing for Dr. M. to give feedback on — and nothing for you to have learned.</td></tr>
-      <tr class="bad"><td>Use AI to generate the script, slide text, or educational content of your final campaign</td><td>This is the whole project. The campaign is supposed to represent your understanding of the science. If AI generated it, it represents AI's output, not yours.</td></tr>
-      <tr class="bad"><td>Use AI to "clean up" writing that ends up substantially rewritten</td><td>If you paste a paragraph in and a different paragraph comes back, that's AI-generated content — regardless of whether you typed the first draft. The test is whether the ideas and sentences are still yours.</td></tr>
-      <tr class="bad"><td>Submit AI-generated content without disclosure</td><td>Even permitted AI use requires disclosure. Submitting any AI-assisted work without attribution is a violation of the policy.</td></tr>
+      <tr class="bad"><td>Use AI to answer reading quiz or lecture video questions</td><td>These assignments build the foundation you need for the SitRW project. Bypassing them doesn't just violate policy — it leaves you without the knowledge you need to do the rest of the course well.</td></tr>
+      <tr class="bad"><td>Ask AI to suggest or select your SitRW topic</td><td>Topic Selection is the first genuine intellectual decision of the project. It requires you to think about what you care about, what the science supports, and what your audience needs.</td></tr>
+      <tr class="bad"><td>Use AI to find, screen, or summarize your empirical articles</td><td>AI frequently hallucinates sources — it invents citations that look real but don't exist. Beyond that, reading your articles yourself is the only way to understand the science you're communicating.</td></tr>
+      <tr class="bad"><td>Ask AI to write or rewrite your Project Description</td><td>The Project Description is where you demonstrate that you understand your research, your audience, and your approach. If AI writes it, there's nothing for Dr. M. to give feedback on.</td></tr>
+      <tr class="bad"><td>Use AI to generate the script, slide text, or educational content of your Final Social Media Campaign Submission</td><td>This is the whole project. The campaign is supposed to represent your understanding of the science. If AI generated it, it represents AI's output, not yours.</td></tr>
+      <tr class="bad"><td>Use AI to "clean up" writing that ends up substantially rewritten</td><td>If you paste a paragraph in and a different paragraph comes back, that's AI-generated content — regardless of whether you typed the first draft.</td></tr>
+      <tr class="bad"><td>Submit any AI-assisted work without disclosure</td><td>Even permitted AI use requires disclosure. Submitting AI-assisted work without attribution violates the policy.</td></tr>
     </tbody>
   </table>
 
-  <div class="firm"><strong>A note on reading quizzes and lecture videos specifically:</strong> It might be tempting to think these are low-stakes enough to cut corners on. They're not — they're 70% of your grade and they're specifically designed to make sure you're keeping up with the material in a condensed 6-week course. More importantly, the knowledge you build through those assignments is what makes the SitRW project possible. Students who bypass them consistently struggle with the project later.</div>
+  <div class="callout callout-req">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>
+    <div><span class="c-label">A note on reading quizzes and lecture videos</span><span class="c-body">It might be tempting to think these are low-stakes enough to cut corners on. They're not — they're 70% of your grade and they're designed to make sure you keep up with the material in a condensed 6-week course. Students who bypass them consistently struggle with the SitRW project later.</span></div>
+  </div>
 </section>
 
-
-<!-- SECTION 5: DISCLOSURE -->
+<!-- ── Section 5: Disclosure ── -->
 <section class="section" id="disclosure">
   <div class="section-header">
-    <div class="section-num num-5">5</div>
-    <span class="section-title">Disclosure — what's required and how to do it</span>
+    <div class="section-num" aria-hidden="true">5</div>
+    <h2 class="section-title">Disclosure — what's required and how to do it</h2>
   </div>
-
-  <p>If you use AI at any stage of the Sex in the Real World project — even for something fully permitted — you must disclose that use in your final reflection. This is not optional, and it applies even to image generation or layout suggestions.</p>
-
-  <div class="tip"><strong>Disclosing permitted AI use will never get you in trouble.</strong> The disclosure requirement exists so Dr. M. can understand what you produced and what AI assisted with. It is not a trap. Students who disclose permitted use are fine. Students who don't disclose any use — permitted or not — are in violation of the policy.</div>
-
-  <p>Your disclosure needs to cover four things:</p>
-
+  <div class="prose">
+    <p>If you use AI at any stage of the Sex in the Real World project — even for something fully permitted — you must disclose that use in your final reflection. This applies even to image generation or layout suggestions.</p>
+  </div>
+  <div class="callout callout-tip">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2a7 7 0 0 1 7 7c0 2.5-1.5 4.5-3 6l-1 3H9l-1-3c-1.5-1.5-3-3.5-3-6a7 7 0 0 1 7-7z"/><path d="M9 21h6"/></svg>
+    <div><span class="c-label">Important</span><span class="c-body">Disclosing permitted AI use will never get you in trouble. Students who disclose permitted use are fine. Students who don't disclose any use — permitted or not — are in violation of the policy.</span></div>
+  </div>
+  <div class="prose" style="margin-top:1rem;"><p>Your disclosure needs to cover four things:</p></div>
   <ul class="checklist">
-    <li>Which AI tool you used (e.g., ChatGPT, Claude, Canva AI, Adobe Firefly, DALL-E, Midjourney)</li>
-    <li>How you used it (e.g., image generation, layout suggestions, caption refinement, grammar check)</li>
-    <li>What parts of the project were AI-assisted</li>
-    <li>What parts of the project you completed yourself</li>
+    <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>Which AI tool you used (e.g., ChatGPT, Claude, Canva AI, Adobe Firefly, DALL-E, Midjourney)</li>
+    <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>How you used it (e.g., image generation, layout suggestions, caption refinement, grammar check)</li>
+    <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>What parts of the project were AI-assisted</li>
+    <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>What parts of the project you completed yourself</li>
   </ul>
 
-  <p>Here's what a complete, well-written disclosure looks like:</p>
-
-  <div class="disclosure-sample">
-    <div class="ds-label">Sample disclosure</div>
+  <div class="disclosure-box">
+    <span class="d-label">Sample disclosure</span>
     I used Canva AI to generate the background image for my first Instagram slide and to suggest two possible carousel layout options — I chose one and modified it. I used ChatGPT to check the grammar in my captions after I had written them; I accepted a few minor corrections but no substantive rewrites. I did not use AI to select my topic, find or read my empirical articles, identify the misconceptions I targeted, or write the scientific content of the project. All source selection, reading, synthesis, and educational content decisions were made by me.
   </div>
 
-  <p>Notice what this disclosure does well: it's specific about which tools were used and for what, it's clear about what AI contributed versus what the student contributed, and it demonstrates that the intellectual core of the project came from the student.</p>
-
-  <div class="warn"><strong>What about tools like Canva that have AI features you didn't intentionally use?</strong> If a tool auto-generated text suggestions or design elements that appeared in your final product, disclose it — even if you didn't seek it out. If you saw a suggestion and dismissed it, you don't need to disclose it.</div>
-
-  <div class="warn"><strong>What about Grammarly?</strong> The basic spell and grammar check features are fine on personal devices. Grammarly's "rewrite sentence," "improve tone," and similar generative features cross into AI-generated content and require disclosure if used. Note that the public version of Grammarly is banned on state-owned devices entirely — check the State of Nevada's current banned technology list if you're unsure.</div>
+  <div class="callout callout-warn" style="margin-top:1rem;">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4M12 17h.01"/></svg>
+    <div><span class="c-label">Grammarly note</span><span class="c-body">Basic spell and grammar check features are fine on personal devices. Grammarly's "rewrite sentence," "improve tone," and similar generative features cross into AI-generated content and require disclosure if used. The public version of Grammarly is banned on state-owned devices entirely.</span></div>
+  </div>
 </section>
 
-
-<!-- SECTION 6: CONSEQUENCES -->
+<!-- ── Section 6: Consequences ── -->
 <section class="section" id="consequences">
   <div class="section-header">
-    <div class="section-num num-6">6</div>
-    <span class="section-title">Consequences</span>
+    <div class="section-num" aria-hidden="true">6</div>
+    <h2 class="section-title">Consequences</h2>
+  </div>
+  <div class="prose">
+    <p>Misuse of AI in this course is treated as academic misconduct under the <a href="https://nevadastate.edu/policy/current/student-code-of-conduct/">NS Student Code of Conduct</a> and the <a href="https://nevadastate.edu/academics/lasb/">LASB Academic Conduct Policy</a>. Consequences scale with severity and frequency.</p>
   </div>
 
-  <p>Misuse of AI in this course is treated as academic misconduct under the <a href="https://nevadastate.edu/policy/current/student-code-of-conduct/" style="color:#185FA5;">NS Student Code of Conduct</a> and the <a href="https://nevadastate.edu/academics/lasb/" style="color:#185FA5;">LASB Academic Conduct Policy</a>.</p>
-
-  <p>Consequences scale with severity and frequency:</p>
-
-  <table class="ex-table">
+  <table class="ex-table" style="margin-top:0.75rem;">
     <thead><tr><th>Situation</th><th>Likely outcome</th></tr></thead>
     <tbody>
       <tr class="neutral"><td>First violation, minor (e.g., undisclosed permitted use)</td><td>Warning and required resubmission</td></tr>
-      <tr class="neutral"><td>First violation, significant (e.g., AI-written project description)</td><td>Zero on the assignment; academic misconduct report filed</td></tr>
+      <tr class="neutral"><td>First violation, significant (e.g., AI-written Project Description)</td><td>Zero on the assignment; academic misconduct report filed</td></tr>
       <tr class="neutral"><td>Repeated violations or severe misconduct</td><td>F in the course, academic probation, suspension, or expulsion</td></tr>
     </tbody>
   </table>
 
-  <div class="firm"><strong>The most important thing to know:</strong> "I didn't know" is not a defense. A misunderstanding about the AI policy does not excuse submitting work that violates the expectations of the course. If you're ever uncertain about a specific use, email Dr. M. before you do it — not after. That's always the right call.</div>
-
-  <p style="margin-top:1rem;">If you have questions about the policy that this page doesn't answer, contact Dr. M. through the Canvas Inbox or at <a href="mailto:pete.martini@nevadastate.edu" style="color:#185FA5;">pete.martini@nevadastate.edu</a>.</p>
+  <div class="callout callout-req" style="margin-top:1rem;">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>
+    <div><span class="c-label">The most important thing to know</span><span class="c-body">"I didn't know" is not a defense. A misunderstanding about the AI policy does not excuse submitting work that violates the expectations of the course. If you're ever uncertain about a specific use, email Dr. M. before you do it — not after. Contact Dr. M. through the Canvas Inbox or at <a href="mailto:pete.martini@nevadastate.edu">pete.martini@nevadastate.edu</a>.</span></div>
+  </div>
 </section>
 
+</div><!-- /.inner -->
+
 <script>
-  var state = { path: null };
+var pathMap = { quiz:'step-quiz', 'sitrw-content':'step-content', 'sitrw-creative':'step-creative', 'other-writing':'step-writing' };
+var verdictMap = { 'quiz-understand':'v-permitted-understand', 'quiz-answers':'v-prohibited-quiz', 'creative-image':'v-permitted-creative', 'creative-layout':'v-permitted-creative', 'creative-caption':'v-permitted-creative', 'creative-script':'v-prohibited-script', 'content-topic':'v-prohibited-content', 'content-articles':'v-prohibited-content', 'content-writing':'v-prohibited-content', 'content-grammar':'v-permitted-grammar', 'writing-generate':'v-prohibited-writing', 'writing-grammar':'v-permitted-grammar', 'writing-study':'v-permitted-study' };
 
-  var pathMap = {
-    'quiz': 'step-quiz',
-    'sitrw-content': 'step-content',
-    'sitrw-creative': 'step-creative',
-    'other-writing': 'step-writing'
-  };
-
-  var verdictMap = {
-    'quiz-understand': 'v-permitted-understand',
-    'quiz-answers': 'v-prohibited-quiz',
-    'creative-image': 'v-permitted-creative',
-    'creative-layout': 'v-permitted-creative',
-    'creative-caption': 'v-permitted-creative',
-    'creative-script': 'v-prohibited-script',
-    'content-topic': 'v-prohibited-content',
-    'content-articles': 'v-prohibited-content',
-    'content-writing': 'v-prohibited-content',
-    'content-grammar': 'v-permitted-grammar',
-    'writing-generate': 'v-prohibited-writing',
-    'writing-grammar': 'v-permitted-grammar',
-    'writing-study': 'v-permitted-study'
-  };
-
-  function answer(qNum, value) {
-    if (qNum === 0) {
-      state.path = value;
-      showStep(pathMap[value]);
-      updateDots(1);
-    } else {
-      showVerdict(verdictMap[value]);
-      updateDots(2);
-    }
+function answer(q, val) {
+  if (q === 0) { showStep(pathMap[val]); updateDots(1); }
+  else { showVerdict(verdictMap[val]); updateDots(2); }
+}
+function showStep(id) {
+  document.querySelectorAll('.q-step').forEach(function(s){ s.classList.remove('active'); });
+  document.querySelectorAll('.verdict').forEach(function(v){ v.classList.remove('show'); });
+  var el = document.getElementById(id); if (el) el.classList.add('active');
+}
+function showVerdict(id) {
+  document.querySelectorAll('.q-step').forEach(function(s){ s.classList.remove('active'); });
+  document.querySelectorAll('.verdict').forEach(function(v){ v.classList.remove('show'); });
+  var el = document.getElementById(id); if (el) el.classList.add('show');
+}
+function updateDots(active) {
+  for (var i = 0; i < 3; i++) {
+    var d = document.getElementById('dot-' + i);
+    d.classList.remove('active','done');
+    if (i < active) d.classList.add('done');
+    else if (i === active) d.classList.add('active');
   }
-
-  function showStep(stepId) {
-    document.querySelectorAll('.q-step').forEach(function(s) { s.classList.remove('active'); });
-    document.querySelectorAll('.verdict').forEach(function(v) { v.classList.remove('show'); });
-    var el = document.getElementById(stepId);
-    if (el) el.classList.add('active');
-  }
-
-  function showVerdict(verdictId) {
-    document.querySelectorAll('.q-step').forEach(function(s) { s.classList.remove('active'); });
-    document.querySelectorAll('.verdict').forEach(function(v) { v.classList.remove('show'); });
-    var el = document.getElementById(verdictId);
-    if (el) el.classList.add('show');
-  }
-
-  function updateDots(active) {
-    for (var i = 0; i < 3; i++) {
-      var dot = document.getElementById('dot-' + i);
-      dot.classList.remove('active', 'done');
-      if (i < active) dot.classList.add('done');
-      else if (i === active) dot.classList.add('active');
-    }
-  }
-
-  function restart() {
-    state.path = null;
-    document.querySelectorAll('.q-step').forEach(function(s) { s.classList.remove('active'); });
-    document.querySelectorAll('.verdict').forEach(function(v) { v.classList.remove('show'); });
-    document.getElementById('step-0').classList.add('active');
-    for (var i = 0; i < 3; i++) {
-      var dot = document.getElementById('dot-' + i);
-      dot.classList.remove('active', 'done');
-      if (i === 0) dot.classList.add('active');
-    }
-  }
-
-  document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
-    anchor.addEventListener('click', function(e) {
-      e.preventDefault();
-      var target = document.querySelector(this.getAttribute('href'));
-      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    });
-  });
+}
+function restart() {
+  document.querySelectorAll('.q-step').forEach(function(s){ s.classList.remove('active'); });
+  document.querySelectorAll('.verdict').forEach(function(v){ v.classList.remove('show'); });
+  document.getElementById('step-0').classList.add('active');
+  for (var i = 0; i < 3; i++) { var d = document.getElementById('dot-'+i); d.classList.remove('active','done'); if (i===0) d.classList.add('active'); }
+}
+document.querySelectorAll('a[href^="#"]').forEach(function(a){
+  a.addEventListener('click', function(e){ e.preventDefault(); var t = document.querySelector(this.getAttribute('href')); if(t) t.scrollIntoView({behavior:'smooth',block:'start'}); });
+});
 </script>
-
 </body>
 </html>
