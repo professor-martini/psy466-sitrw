@@ -4,508 +4,607 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sex in the Real World – Project Guide & Troubleshooting</title>
+<title>Project guide &amp; troubleshooting – Sex in the Real World</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2248%22%20height%3D%2248%22%20viewBox%3D%220%200%2048%2048%22%20fill%3D%22none%22%20role%3D%22img%22%20aria-label%3D%22Sex%20in%20the%20Real%20World%20mark%22%3E%0A%20%20%3Ccircle%20cx%3D%2224%22%20cy%3D%2224%22%20r%3D%2221%22%20fill%3D%22%23c2410c%22%3E%3C/circle%3E%0A%20%20%3Cg%20stroke%3D%22%23f0b3a3%22%20stroke-width%3D%221.6%22%20stroke-linecap%3D%22round%22%20fill%3D%22none%22%20opacity%3D%220.9%22%3E%0A%20%20%20%20%3Cline%20x1%3D%223.5%22%20y1%3D%2224%22%20x2%3D%2244.5%22%20y2%3D%2224%22%3E%3C/line%3E%0A%20%20%20%20%3Cline%20x1%3D%2210%22%20y1%3D%2215.5%22%20x2%3D%2238%22%20y2%3D%2215.5%22%3E%3C/line%3E%0A%20%20%20%20%3Cline%20x1%3D%2210%22%20y1%3D%2232.5%22%20x2%3D%2238%22%20y2%3D%2232.5%22%3E%3C/line%3E%0A%20%20%20%20%3Cellipse%20cx%3D%2224%22%20cy%3D%2224%22%20rx%3D%229%22%20ry%3D%2221%22%3E%3C/ellipse%3E%0A%20%20%3C/g%3E%0A%20%20%3Ctext%20x%3D%2224%22%20y%3D%2225%22%20text-anchor%3D%22middle%22%20dominant-baseline%3D%22central%22%20fill%3D%22%23fffaf6%22%20font-family%3D%22Georgia%2C%20%26%2339%3BTimes%20New%20Roman%26%2339%3B%2C%20serif%22%20font-weight%3D%22700%22%20font-size%3D%2225%22%3E%CE%A8%3C/text%3E%0A%3C/svg%3E">
 <style>
-  * { box-sizing: border-box; margin: 0; padding: 0; }
+/* ============================================================================
+   SEX IN THE REAL WORLD — Course Design System
+   colors_and_type.css
 
-  body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    font-size: 16px;
-    line-height: 1.7;
-    color: #1a1a1a;
-    background: #fff;
-    max-width: 860px;
-    margin: 0 auto;
-    padding: 2rem 1.5rem 4rem;
+   An undergraduate human-sexuality course identity for Nevada State University.
+   Independent course sub-brand. Warm + academic + accessibility-first.
+
+   Fonts are loaded from Google Fonts (see the @import below). This is an
+   all-sans system (no serifs), accessibility-first. These ARE the intended
+   typefaces, not substitutions:
+     - Bricolage Grotesque → display / headings (warm, editorial sans with
+                             literary character — authority without serifs)
+     - Atkinson Hyperlegible → body, long-form reading, UI chrome, labels,
+                               captions, buttons (designed by the Braille
+                               Institute for maximum legibility — the system's
+                               accessibility signature)
+     - JetBrains Mono     → metadata, code, citations-as-data
+   ============================================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+:root {
+  /* ------------------------------------------------------------------ */
+  /* TYPEFACES                                                           */
+  /* ------------------------------------------------------------------ */
+  --font-display: 'Bricolage Grotesque', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-body:    'Atkinson Hyperlegible', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-ui:      'Atkinson Hyperlegible', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono:    'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+  /* Serif used ONLY for the Ψ glyph in the logo mark — a deliberate classical
+     accent. Not for any running text (the system is otherwise all-sans). */
+  --font-psi:     Georgia, 'Times New Roman', 'Iowan Old Style', serif;
+
+  /* ------------------------------------------------------------------ */
+  /* COLOR — RAW PALETTE                                                  */
+  /* Warm cream surfaces, ink text, terracotta primary, coral secondary. */
+  /* ------------------------------------------------------------------ */
+
+  /* Cream / warm surfaces */
+  --cream-50:  #fefcf9;   /* lightest — raised cards on cream */
+  --cream-100: #fdf6f0;   /* default page background */
+  --cream-200: #f8ede2;   /* alt section / inset panels */
+  --cream-300: #f0e0d1;   /* hairline borders, dividers (warm) */
+  --cream-400: #e4cdb8;   /* stronger warm border */
+
+  /* Ink / text neutrals (warm-tinted grays) */
+  --ink-900: #1c1917;     /* primary text — 15.8:1 on cream-100 */
+  --ink-800: #292524;
+  --ink-700: #44403c;     /* secondary text — 8.9:1 on cream-100 */
+  --ink-600: #57534e;     /* tertiary text — 6.6:1 */
+  --ink-500: #78716c;     /* muted / meta — 4.6:1 (AA for >=18px) */
+  --ink-400: #a8a29e;     /* disabled / decorative only */
+  --ink-300: #d6d3d1;
+
+  /* Terracotta — PRIMARY brand */
+  --terracotta-800: #7c2d12;
+  --terracotta-700: #9a3412;  /* text-safe primary on cream — 6.6:1 */
+  --terracotta-600: #c2410c;  /* brand core — buttons, key accents */
+  --terracotta-500: #ea580c;  /* hover / brighter */
+  --terracotta-200: #fcd9c2;  /* tint fills */
+  --terracotta-100: #fdeae0;  /* lightest wash */
+
+  /* Coral / blush — SECONDARY */
+  --coral-500: #d2654c;
+  --coral-400: #e8927c;  /* decorative, illustration accents */
+  --coral-300: #f0b3a3;
+  --coral-200: #f8d6cc;
+  --coral-100: #fbe7e1;
+
+  /* Plum — DEEP ACCENT (mature topic, used sparingly for section headers) */
+  --plum-900: #4a1733;
+  --plum-800: #6b2348;  /* deep header bands, footers — 9.7:1 white text */
+  --plum-700: #883159;
+
+  /* ------------------------------------------------------------------ */
+  /* SEMANTIC CALLOUT COLORS — academic LMS notes/tips/warnings          */
+  /* All tuned for AA text contrast on their tint backgrounds.           */
+  /* ------------------------------------------------------------------ */
+  --note-fg:   #1d4f91;  --note-bg:   #e8f0fb;  --note-border:   #bcd4f0; /* Note / info */
+  --tip-fg:    #3f6212;  --tip-bg:    #edf4e3;  --tip-border:    #cfe3b0; /* Tip / key takeaway */
+  --warn-fg:   #92400e;  --warn-bg:   #fbeeda;  --warn-border:   #f3d9ad; /* Caution / sensitive content */
+  --term-fg:   #7c2d12;  --term-bg:   var(--terracotta-100); --term-border: var(--terracotta-200); /* Key term */
+  --danger-fg: #9f1239;  --danger-bg: #fce7ec;  --danger-border: #f6c2cf; /* Required / deadline */
+
+  /* ------------------------------------------------------------------ */
+  /* SEMANTIC SURFACE + TEXT ROLES                                       */
+  /* ------------------------------------------------------------------ */
+  --bg:            var(--cream-100);
+  --bg-raised:     var(--cream-50);
+  --bg-inset:      var(--cream-200);
+  --bg-invert:     var(--plum-800);
+
+  --fg:            var(--ink-900);   /* fg1 — primary */
+  --fg-secondary:  var(--ink-700);   /* fg2 */
+  --fg-muted:      var(--ink-500);   /* fg3 — meta */
+  --fg-onbrand:    #fffaf6;          /* text on terracotta/plum */
+
+  --border:        var(--cream-300);
+  --border-strong: var(--cream-400);
+
+  --brand:         var(--terracotta-600);
+  --brand-text:    var(--terracotta-700); /* brand color used as TEXT (AA) */
+  --brand-hover:   var(--terracotta-500);
+  --brand-press:   var(--terracotta-700);
+  --accent:        var(--coral-400);
+
+  --focus-ring:    #1d4f91;          /* high-contrast focus outline */
+  --link:          var(--terracotta-700);
+  --link-visited:  var(--plum-700);
+
+  /* ------------------------------------------------------------------ */
+  /* TYPE SCALE — fluid, generous (academic reading comfort)             */
+  /* Body baseline 18px (never below 16px for accessibility).            */
+  /* ------------------------------------------------------------------ */
+  --text-xs:   0.75rem;   /* 12px — fine print, never body */
+  --text-sm:   0.875rem;  /* 14px — meta / labels */
+  --text-base: 1.125rem;  /* 18px — BODY default */
+  --text-lg:   1.25rem;   /* 20px — lead paragraphs */
+  --text-xl:   1.5rem;    /* 24px — h4 */
+  --text-2xl:  1.875rem;  /* 30px — h3 */
+  --text-3xl:  2.5rem;    /* 40px — h2 */
+  --text-4xl:  3.25rem;   /* 52px — h1 */
+  --text-5xl:  4.5rem;    /* 72px — display hero */
+
+  --leading-tight:   1.12;
+  --leading-snug:    1.28;
+  --leading-normal:  1.5;
+  --leading-relaxed: 1.65;  /* body reading measure */
+
+  --tracking-tight:  -0.02em;
+  --tracking-normal: 0;
+  --tracking-wide:   0.04em;
+  --tracking-caps:   0.08em;  /* uppercase UI labels */
+
+  --measure: 68ch;   /* optimal reading line length */
+
+  /* ------------------------------------------------------------------ */
+  /* SPACING — 4px base scale                                            */
+  /* ------------------------------------------------------------------ */
+  --space-1: 0.25rem;  --space-2: 0.5rem;   --space-3: 0.75rem;
+  --space-4: 1rem;     --space-5: 1.5rem;   --space-6: 2rem;
+  --space-7: 2.5rem;   --space-8: 3rem;     --space-9: 4rem;
+  --space-10: 6rem;    --space-12: 8rem;
+
+  /* ------------------------------------------------------------------ */
+  /* RADII — soft, friendly, but not bubbly                              */
+  /* ------------------------------------------------------------------ */
+  --radius-sm:  4px;
+  --radius-md:  8px;
+  --radius-lg:  14px;
+  --radius-xl:  22px;
+  --radius-pill: 999px;
+
+  /* ------------------------------------------------------------------ */
+  /* ELEVATION — warm-tinted, soft. Academic = restrained.               */
+  /* ------------------------------------------------------------------ */
+  --shadow-xs: 0 1px 2px rgba(60, 30, 15, 0.06);
+  --shadow-sm: 0 1px 3px rgba(60, 30, 15, 0.08), 0 1px 2px rgba(60, 30, 15, 0.05);
+  --shadow-md: 0 4px 12px rgba(60, 30, 15, 0.09), 0 2px 4px rgba(60, 30, 15, 0.05);
+  --shadow-lg: 0 12px 28px rgba(60, 30, 15, 0.12), 0 4px 8px rgba(60, 30, 15, 0.06);
+
+  --ring-focus: 0 0 0 3px var(--cream-100), 0 0 0 5px var(--focus-ring);
+}
+
+/* ============================================================================
+   SEMANTIC ELEMENT STYLES
+   Apply with the .swrt-prose scope on long-form content, or pull the vars.
+   ============================================================================ */
+
+.swrt-h1, .swrt-prose h1 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: var(--text-4xl);
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-tight);
+  color: var(--fg);
+  text-wrap: balance;
+}
+.swrt-h2, .swrt-prose h2 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: var(--text-3xl);
+  line-height: var(--leading-snug);
+  letter-spacing: var(--tracking-tight);
+  color: var(--fg);
+  text-wrap: balance;
+}
+.swrt-h3, .swrt-prose h3 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: var(--text-2xl);
+  line-height: var(--leading-snug);
+  color: var(--fg);
+}
+.swrt-h4, .swrt-prose h4 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: var(--text-xl);
+  line-height: var(--leading-snug);
+  color: var(--fg);
+}
+.swrt-eyebrow {
+  font-family: var(--font-ui);
+  font-weight: 700;
+  font-size: var(--text-sm);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-caps);
+  color: var(--brand-text);
+}
+.swrt-lead, .swrt-prose .lead {
+  font-family: var(--font-body);
+  font-size: var(--text-lg);
+  line-height: var(--leading-relaxed);
+  color: var(--fg-secondary);
+}
+.swrt-body, .swrt-prose p, .swrt-prose li {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  line-height: var(--leading-relaxed);
+  color: var(--fg);
+  max-width: var(--measure);
+}
+.swrt-meta {
+  font-family: var(--font-ui);
+  font-size: var(--text-sm);
+  color: var(--fg-muted);
+  letter-spacing: var(--tracking-normal);
+}
+.swrt-label {
+  font-family: var(--font-ui);
+  font-weight: 700;
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-caps);
+  color: var(--fg-secondary);
+}
+.swrt-mono, .swrt-prose code {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+  background: var(--cream-200);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 0.08em 0.36em;
+  color: var(--ink-800);
+}
+.swrt-prose a, .swrt-link {
+  color: var(--link);
+  text-decoration: underline;
+  text-decoration-thickness: 0.08em;
+  text-underline-offset: 0.16em;
+  text-decoration-color: var(--terracotta-200);
+  transition: text-decoration-color 0.15s ease, color 0.15s ease;
+}
+.swrt-prose a:hover, .swrt-link:hover {
+  color: var(--brand-hover);
+  text-decoration-color: currentColor;
+}
+.swrt-prose a:visited { color: var(--link-visited); }
+
+/* Accessibility: a real, visible focus ring everywhere. */
+:where(a, button, input, select, textarea, [tabindex]):focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+/* Respect reduced-motion globally. */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
   }
+}
 
-  h1 {
-    font-size: 24px;
-    font-weight: 500;
-    margin-bottom: 0.4rem;
-    color: #1a1a1a;
-  }
+/* Optional high-legibility mode: swap all serif body for Atkinson Hyperlegible.
+   Add class="hyperlegible" to <html> or any scope. */
+.hyperlegible, .hyperlegible :where(p, li, h1, h2, h3, h4, .swrt-body, .swrt-lead) {
+  font-family: var(--font-ui) !important;
+  letter-spacing: 0.01em;
+}
 
-  .subtitle {
-    font-size: 15px;
-    color: #666;
-    margin-bottom: 2.5rem;
-    border-bottom: 0.5px solid #ddd;
-    padding-bottom: 1.5rem;
-  }
 
-  .stage {
-    margin-bottom: 2.5rem;
-    border: 0.5px solid #ddd;
-    border-radius: 12px;
-    overflow: hidden;
-  }
+/* ============ SHARED COMPONENT STYLES (built on the design tokens) ============ */
+*{ box-sizing:border-box; margin:0; padding:0; }
+html{ scroll-behavior:smooth; }
+body{
+  font-family:var(--font-body);
+  font-size:var(--text-base);
+  line-height:var(--leading-relaxed);
+  color:var(--fg);
+  background:var(--bg);
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+.wrap{ max-width:880px; margin:0 auto; padding:0 var(--space-5) var(--space-10); }
 
-  .stage-header {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    padding: 1rem 1.25rem;
-    background: #f7f7f5;
-    border-bottom: 0.5px solid #ddd;
-  }
+.skip{ position:absolute; left:-9999px; top:0; z-index:60;
+  background:var(--brand); color:var(--fg-onbrand); font-family:var(--font-ui); font-weight:700;
+  padding:10px 16px; border-radius:var(--radius-md); }
+.skip:focus{ left:var(--space-4); top:var(--space-4); }
 
-  .stage-badge {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    font-size: 13px;
-    font-weight: 500;
-    flex-shrink: 0;
-  }
+/* masthead (chrome overridden per theme) */
+.eyebrow{ font-family:var(--font-ui); font-weight:700; font-size:var(--text-sm);
+  text-transform:uppercase; letter-spacing:var(--tracking-caps); color:var(--brand-text); }
+h1.title{ font-family:var(--font-display); font-weight:600; font-size:var(--text-4xl);
+  line-height:var(--leading-tight); letter-spacing:var(--tracking-tight);
+  color:var(--fg); text-wrap:balance; }
+.subtitle{ font-family:var(--font-body); font-size:var(--text-lg);
+  line-height:var(--leading-relaxed); color:var(--fg-secondary); max-width:60ch; }
+.brand-lockup{ display:flex; align-items:center; gap:var(--space-4); }
+.brand-lockup .wm{ display:flex; flex-direction:column; }
+.brand-lockup .wm b{ font-family:var(--font-display); font-weight:700; font-size:var(--text-lg);
+  letter-spacing:var(--tracking-tight); color:inherit; line-height:1.1; }
+.brand-lockup .wm small{ font-family:var(--font-ui); font-weight:700; font-size:var(--text-xs);
+  text-transform:uppercase; letter-spacing:var(--tracking-caps); opacity:.85; }
 
-  .badge-1 { background: #CECBF6; color: #3C3489; }
-  .badge-2 { background: #9FE1CB; color: #085041; }
-  .badge-3 { background: #B5D4F4; color: #0C447C; }
-  .badge-4 { background: #FAC775; color: #633806; }
-  .badge-5 { background: #F5C4B3; color: #712B13; }
+/* nav */
+.nav-strip{ display:flex; flex-wrap:wrap; gap:var(--space-2); margin:var(--space-7) 0 var(--space-8); }
+.nav-pill{ display:inline-flex; align-items:center; gap:8px;
+  font-family:var(--font-ui); font-weight:700; font-size:var(--text-sm);
+  padding:9px 16px; border-radius:var(--radius-pill);
+  background:var(--bg-raised); color:var(--fg-secondary); border:1px solid var(--border);
+  text-decoration:none; transition:background .15s ease,color .15s ease,border-color .15s ease; }
+.nav-pill .np-n{ font-family:var(--font-mono); font-size:.8em; font-weight:500; color:var(--brand-text); }
+.nav-pill:hover{ background:var(--brand); color:var(--fg-onbrand); border-color:var(--brand); }
+.nav-pill:hover .np-n{ color:var(--fg-onbrand); }
 
-  .stage-title {
-    font-size: 16px;
-    font-weight: 500;
-    color: #1a1a1a;
-  }
+/* stage cards */
+.stage{ background:var(--bg-raised); border:1px solid var(--border);
+  border-radius:var(--radius-lg); box-shadow:var(--shadow-sm);
+  margin-bottom:var(--space-6); overflow:hidden; }
+.stage-header{ display:flex; align-items:center; gap:var(--space-4);
+  padding:var(--space-4) var(--space-6); background:var(--bg-inset);
+  border-bottom:1px solid var(--border); }
+.stage-badge{ flex:none; width:38px; height:38px; border-radius:var(--radius-md);
+  display:flex; align-items:center; justify-content:center;
+  font-family:var(--font-display); font-weight:700; font-size:var(--text-lg);
+  background:var(--term-bg); color:var(--term-fg); border:1px solid var(--term-border); }
+.stage-title{ font-family:var(--font-display); font-weight:600; font-size:var(--text-xl);
+  line-height:var(--leading-snug); color:var(--fg); }
+.stage-due{ margin-left:auto; flex:none; font-family:var(--font-mono); font-size:var(--text-sm);
+  color:var(--fg-muted); white-space:nowrap;
+  background:var(--bg-raised); border:1px solid var(--border);
+  border-radius:var(--radius-pill); padding:4px 12px; }
+.stage-body{ padding:var(--space-6); }
+.stage-intro{ font-family:var(--font-body); font-size:var(--text-lg);
+  line-height:var(--leading-relaxed); color:var(--fg-secondary);
+  max-width:var(--measure); margin-bottom:var(--space-5); }
 
-  .stage-due {
-    margin-left: auto;
-    font-size: 12px;
-    color: #888;
-    background: #fff;
-    border: 0.5px solid #ddd;
-    border-radius: 20px;
-    padding: 3px 10px;
-    white-space: nowrap;
-  }
+/* faq accordions */
+.faq-item{ border:1px solid var(--border); border-radius:var(--radius-md);
+  background:var(--bg); overflow:hidden; margin-bottom:var(--space-3);
+  transition:border-color .15s ease, box-shadow .15s ease; }
+.faq-item:has(.faq-a.visible){ border-color:var(--border-strong); box-shadow:var(--shadow-xs); }
+.faq-q{ display:flex; align-items:flex-start; gap:var(--space-3);
+  width:100%; text-align:left; border:none; background:transparent; cursor:pointer;
+  padding:var(--space-4) var(--space-5);
+  font-family:var(--font-ui); font-weight:700; font-size:var(--text-base);
+  line-height:var(--leading-snug); color:var(--fg); transition:background .15s ease; }
+.faq-q:hover{ background:var(--bg-inset); }
+.q-label{ flex:none; margin-top:2px; font-family:var(--font-ui); font-weight:700;
+  font-size:var(--text-xs); letter-spacing:var(--tracking-caps); text-transform:uppercase;
+  color:var(--brand-text); background:var(--term-bg); border:1px solid var(--term-border);
+  border-radius:var(--radius-sm); padding:2px 7px; line-height:1.4; }
+.q-text{ flex:1; }
+.chev{ flex:none; width:20px; height:20px; margin-top:1px; color:var(--fg-muted);
+  transition:transform .2s ease; }
+.faq-q.open .chev{ transform:rotate(180deg); }
+.faq-a{ display:none; padding:var(--space-2) var(--space-5) var(--space-5);
+  border-top:1px solid var(--border); }
+.faq-a.visible{ display:block; animation:fade .18s ease-out; }
+@keyframes fade{ from{ opacity:0; transform:translateY(3px); } to{ opacity:1; transform:none; } }
+.faq-a > p{ font-family:var(--font-body); font-size:var(--text-base);
+  line-height:var(--leading-relaxed); color:var(--fg); max-width:var(--measure);
+  margin-bottom:var(--space-3); }
+.faq-a > p:first-child{ margin-top:var(--space-3); }
+.faq-a > p:last-child{ margin-bottom:0; }
+.faq-a strong{ font-weight:700; color:var(--fg); }
+.faq-a em{ font-style:italic; }
+.faq-a a{ color:var(--link); text-decoration:underline; text-decoration-color:var(--terracotta-200);
+  text-decoration-thickness:.08em; text-underline-offset:.16em;
+  transition:color .15s ease, text-decoration-color .15s ease; word-break:break-word; }
+.faq-a a:hover{ color:var(--brand-hover); text-decoration-color:currentColor; }
+.faq-a a:visited{ color:var(--link-visited); }
 
-  .stage-body {
-    padding: 1.25rem 1.5rem;
-  }
+/* callouts — tinted bg + border + leading icon + title (brand rule) */
+.callout{ display:flex; gap:var(--space-3); padding:var(--space-4);
+  border-radius:var(--radius-md); border:1px solid; margin-top:var(--space-4);
+  max-width:var(--measure); }
+.callout .cico{ width:20px; height:20px; flex:none; margin-top:2px; }
+.callout .ctxt{ min-width:0; }
+.callout .ctt{ display:block; font-family:var(--font-ui); font-weight:700; font-size:var(--text-sm);
+  text-transform:uppercase; letter-spacing:var(--tracking-caps); margin-bottom:3px; }
+.callout .cbody{ font-family:var(--font-body); font-size:var(--text-base);
+  line-height:var(--leading-normal); color:var(--fg); }
+.callout.note{ background:var(--note-bg); border-color:var(--note-border); color:var(--note-fg); }
+.callout.tip{ background:var(--tip-bg); border-color:var(--tip-border); color:var(--tip-fg); }
+.callout.caution{ background:var(--warn-bg); border-color:var(--warn-border); color:var(--warn-fg); }
+.callout a{ color:inherit; font-weight:700; text-decoration:underline; text-underline-offset:.16em; word-break:break-word; }
 
-  .stage-intro {
-    font-size: 15px;
-    color: #444;
-    margin-bottom: 1.25rem;
-    line-height: 1.65;
-  }
+/* worked-example panel */
+.example-box{ background:var(--bg-inset); border:1px solid var(--border);
+  border-radius:var(--radius-md); padding:var(--space-4); margin-top:var(--space-4);
+  max-width:var(--measure); }
+.ex-label{ font-family:var(--font-ui); font-weight:700; font-size:var(--text-xs);
+  text-transform:uppercase; letter-spacing:var(--tracking-caps);
+  color:var(--fg-muted); margin-bottom:var(--space-3); line-height:1.4; }
+.ex-good,.ex-bad{ display:flex; align-items:flex-start; gap:9px;
+  font-family:var(--font-body); font-size:var(--text-sm); line-height:var(--leading-normal);
+  padding:8px 12px; border-radius:var(--radius-sm); margin-bottom:6px; }
+.ex-good:last-child,.ex-bad:last-child{ margin-bottom:0; }
+.ex-good::before,.ex-bad::before{ content:""; flex:none; width:18px; height:18px; margin-top:2px;
+  background-color:currentColor;
+  -webkit-mask:center/contain no-repeat; mask:center/contain no-repeat; }
+.ex-good{ color:var(--tip-fg); background:var(--tip-bg); }
+.ex-bad{ color:var(--danger-fg); background:var(--danger-bg); }
+.ex-good::before{ -webkit-mask-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20viewBox%3D%270%200%2024%2024%27%20fill%3D%27none%27%20stroke%3D%27%23000%27%20stroke-width%3D%273%27%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27%3E%3Cpath%20d%3D%27M20%206%209%2017l-5-5%27/%3E%3C/svg%3E"); mask-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20viewBox%3D%270%200%2024%2024%27%20fill%3D%27none%27%20stroke%3D%27%23000%27%20stroke-width%3D%273%27%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27%3E%3Cpath%20d%3D%27M20%206%209%2017l-5-5%27/%3E%3C/svg%3E"); }
+.ex-bad::before{ -webkit-mask-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20viewBox%3D%270%200%2024%2024%27%20fill%3D%27none%27%20stroke%3D%27%23000%27%20stroke-width%3D%273%27%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27%3E%3Cpath%20d%3D%27M18%206%206%2018%27/%3E%3Cpath%20d%3D%27m6%206%2012%2012%27/%3E%3C/svg%3E"); mask-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20viewBox%3D%270%200%2024%2024%27%20fill%3D%27none%27%20stroke%3D%27%23000%27%20stroke-width%3D%273%27%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27%3E%3Cpath%20d%3D%27M18%206%206%2018%27/%3E%3Cpath%20d%3D%27m6%206%2012%2012%27/%3E%3C/svg%3E"); }
+.ex-note{ color:var(--fg-muted); font-style:italic; }
 
-  .faq-item {
-    margin-bottom: 1rem;
-    border: 0.5px solid #e8e8e8;
-    border-radius: 8px;
-    overflow: hidden;
-  }
+/* checklist */
+.checklist{ list-style:none; margin:var(--space-3) 0; max-width:var(--measure); }
+.checklist li{ display:flex; gap:10px; align-items:flex-start;
+  font-family:var(--font-body); font-size:var(--text-base); line-height:var(--leading-normal);
+  color:var(--fg); margin-bottom:8px; }
+.checklist li:last-child{ margin-bottom:0; }
+.checklist li::before{ content:""; flex:none; width:18px; height:18px; margin-top:4px;
+  background-color:var(--brand);
+  -webkit-mask:center/contain no-repeat; mask:center/contain no-repeat;
+  -webkit-mask-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20viewBox%3D%270%200%2024%2024%27%20fill%3D%27none%27%20stroke%3D%27%23000%27%20stroke-width%3D%272.4%27%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27%3E%3Cpath%20d%3D%27M5%2012h14%27/%3E%3Cpath%20d%3D%27m12%205%207%207-7%207%27/%3E%3C/svg%3E"); mask-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20viewBox%3D%270%200%2024%2024%27%20fill%3D%27none%27%20stroke%3D%27%23000%27%20stroke-width%3D%272.4%27%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27%3E%3Cpath%20d%3D%27M5%2012h14%27/%3E%3Cpath%20d%3D%27m12%205%207%207-7%207%27/%3E%3C/svg%3E"); }
 
-  .faq-q {
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-    padding: 0.85rem 1rem;
-    background: #fafafa;
-    cursor: pointer;
-    font-size: 14px;
-    font-weight: 500;
-    color: #1a1a1a;
-    user-select: none;
-    list-style: none;
-    border: none;
-    width: 100%;
-    text-align: left;
-  }
+/* annotation table */
+.annotation-table{ width:100%; border-collapse:collapse; margin-top:var(--space-4);
+  font-family:var(--font-body); font-size:var(--text-sm); max-width:var(--measure); }
+.annotation-table th{ text-align:left; font-family:var(--font-ui); font-weight:700;
+  font-size:var(--text-xs); text-transform:uppercase; letter-spacing:var(--tracking-wide);
+  color:var(--fg-secondary); background:var(--bg-inset);
+  border:1px solid var(--border); padding:10px 12px; }
+.annotation-table td{ border:1px solid var(--border); padding:10px 12px;
+  vertical-align:top; color:var(--fg-secondary); line-height:var(--leading-normal); }
+.annotation-table tr:nth-child(even) td{ background:var(--bg-inset); }
 
-  .faq-q:hover { background: #f3f3f0; }
+/* colophon */
+.colophon{ margin-top:var(--space-8); padding-top:var(--space-6);
+  border-top:1px solid var(--border);
+  display:flex; align-items:center; gap:var(--space-4); flex-wrap:wrap;
+  font-family:var(--font-ui); font-size:var(--text-sm); color:var(--fg-muted); }
+.colophon .c-meta{ font-family:var(--font-mono); }
 
-  .faq-q .q-label {
-    font-size: 11px;
-    font-weight: 500;
-    color: #888;
-    background: #e8e8e8;
-    border-radius: 4px;
-    padding: 2px 6px;
-    flex-shrink: 0;
-    margin-top: 2px;
-    text-transform: uppercase;
-    letter-spacing: 0.03em;
-  }
+@media (max-width:560px){
+  h1.title{ font-size:var(--text-3xl); }
+  .stage-header{ flex-wrap:wrap; gap:var(--space-3); }
+  .stage-due{ margin-left:0; }
+  .stage-body{ padding:var(--space-5); }
+}
 
-  .faq-q .chevron {
-    margin-left: auto;
-    flex-shrink: 0;
-    font-size: 18px;
-    color: #aaa;
-    transition: transform 0.2s;
-    line-height: 1;
-  }
 
-  .faq-q.open .chevron { transform: rotate(180deg); }
+/* BOLD — plum invert masthead + footer, heavier display, stronger structure */
+.theme-bold .masthead{ background:var(--bg-invert); color:var(--fg-onbrand); }
+.theme-bold .mh-inner{ max-width:880px; margin:0 auto; padding:var(--space-9) var(--space-5) var(--space-8); }
+.theme-bold .brand-lockup{ margin-bottom:var(--space-6); color:var(--fg-onbrand); }
+.theme-bold .masthead .eyebrow{ display:block; color:var(--coral-300); margin-bottom:var(--space-3); }
+.theme-bold .masthead h1.title{ color:var(--fg-onbrand); font-weight:700; font-size:var(--text-5xl);
+  line-height:1.04; margin-bottom:var(--space-4); }
+.theme-bold .masthead .subtitle{ color:#f2dbcf; }
+.theme-bold .wrap{ padding-top:var(--space-8); }
+.theme-bold .stage{ border-color:var(--border-strong); box-shadow:var(--shadow-md); }
+.theme-bold .stage-title{ font-weight:700; }
+.theme-bold .stage-badge{ background:var(--brand); color:var(--fg-onbrand); border-color:var(--brand); }
+.theme-bold .nav-pill{ font-weight:700; }
+.theme-bold .colophon{ background:var(--bg-invert); color:#f2dbcf; border:none;
+  margin:var(--space-9) calc(50% - 50vw) 0; padding:var(--space-7) max(var(--space-5), calc(50vw - 440px)); }
+@media (min-width:560px){ .theme-bold .masthead h1.title{ font-size:var(--text-5xl); } }
+@media (max-width:560px){ .theme-bold .masthead h1.title{ font-size:var(--text-4xl); } }
 
-  .faq-a {
-    display: none;
-    padding: 1rem 1rem 1rem 1rem;
-    font-size: 14px;
-    line-height: 1.7;
-    color: #333;
-    border-top: 0.5px solid #e8e8e8;
-  }
-
-  .faq-a.visible { display: block; }
-
-  .faq-a p { margin-bottom: 0.75rem; }
-  .faq-a p:last-child { margin-bottom: 0; }
-
-  .example-box {
-    background: #f7f7f5;
-    border: 0.5px solid #ddd;
-    border-radius: 8px;
-    padding: 1rem 1.1rem;
-    margin-top: 0.75rem;
-    font-size: 13px;
-    line-height: 1.65;
-  }
-
-  .example-box .ex-label {
-    font-size: 11px;
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: #888;
-    margin-bottom: 0.5rem;
-  }
-
-  .example-box .ex-bad {
-    color: #993C1D;
-    margin-bottom: 0.4rem;
-  }
-
-  .example-box .ex-good {
-    color: #0F6E56;
-  }
-
-  .example-box .ex-bad::before { content: "✗  "; font-weight: 500; }
-  .example-box .ex-good::before { content: "✓  "; font-weight: 500; }
-
-  .tip-box {
-    background: #E6F1FB;
-    border: 0.5px solid #B5D4F4;
-    border-radius: 8px;
-    padding: 0.85rem 1rem;
-    margin-top: 0.75rem;
-    font-size: 13px;
-    color: #0C447C;
-    line-height: 1.6;
-  }
-
-  .tip-box strong { font-weight: 500; }
-
-  .warn-box {
-    background: #FAEEDA;
-    border: 0.5px solid #FAC775;
-    border-radius: 8px;
-    padding: 0.85rem 1rem;
-    margin-top: 0.75rem;
-    font-size: 13px;
-    color: #633806;
-    line-height: 1.6;
-  }
-
-  .annotation-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 13px;
-    margin-top: 0.75rem;
-  }
-
-  .annotation-table th {
-    background: #f0f0ee;
-    text-align: left;
-    padding: 7px 10px;
-    font-weight: 500;
-    color: #444;
-    border: 0.5px solid #ddd;
-  }
-
-  .annotation-table td {
-    padding: 8px 10px;
-    border: 0.5px solid #e4e4e4;
-    vertical-align: top;
-    color: #333;
-    line-height: 1.55;
-  }
-
-  .annotation-table tr:nth-child(even) td { background: #fafaf8; }
-
-  .checklist {
-    list-style: none;
-    margin-top: 0.6rem;
-  }
-
-  .checklist li {
-    display: flex;
-    align-items: flex-start;
-    gap: 8px;
-    font-size: 13px;
-    color: #333;
-    margin-bottom: 0.4rem;
-    line-height: 1.55;
-  }
-
-  .checklist li::before {
-    content: "☐";
-    flex-shrink: 0;
-    font-size: 15px;
-    color: #aaa;
-    margin-top: -1px;
-  }
-
-  .nav-strip {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-    margin-bottom: 2rem;
-  }
-
-  .nav-pill {
-    font-size: 13px;
-    padding: 5px 13px;
-    border-radius: 20px;
-    border: 0.5px solid #ddd;
-    background: #fff;
-    color: #444;
-    cursor: pointer;
-    text-decoration: none;
-    transition: background 0.15s, color 0.15s;
-  }
-
-  .nav-pill:hover { background: #f0f0ee; color: #1a1a1a; }
-
-  .pill-1:hover { background: #EEEDFE; color: #3C3489; border-color: #CECBF6; }
-  .pill-2:hover { background: #E1F5EE; color: #085041; border-color: #9FE1CB; }
-  .pill-3:hover { background: #E6F1FB; color: #0C447C; border-color: #B5D4F4; }
-  .pill-4:hover { background: #FAEEDA; color: #633806; border-color: #FAC775; }
-  .pill-5:hover { background: #FAECE7; color: #712B13; border-color: #F5C4B3; }
 </style>
 </head>
-<body>
-
-<h1>Sex in the Real World – Project Guide & Troubleshooting</h1>
-<p class="subtitle">A stage-by-stage walkthrough of common questions, worked examples, and tips to keep you on track in this fast-moving course.</p>
-
-<nav class="nav-strip" aria-label="Jump to stage">
-  <a class="nav-pill pill-1" href="#stage1">1 · Topic Selection</a>
-  <a class="nav-pill pill-2" href="#stage2">2 · Article Submission and Annotations</a>
-  <a class="nav-pill pill-3" href="#stage3">3 · Project Description</a>
-  <a class="nav-pill pill-4" href="#stage4">4 · Dr. M. 1-on-1</a>
-  <a class="nav-pill pill-5" href="#stage5">5 · Final Social Media Campaign Submission</a>
-</nav>
-
-
-<!-- STAGE 1 -->
-<section class="stage" id="stage1">
-  <div class="stage-header">
-    <div class="stage-badge badge-1">1</div>
-    <span class="stage-title">Topic Selection</span>
-    <span class="stage-due">Due Sunday, May 31</span>
+<body class="theme-bold">
+<a class="skip" href="#stage1">Skip to the guide</a>
+<header class="masthead">
+  <div class="mh-inner">
+    <div class="brand-lockup"><svg xmlns="http://www.w3.org/2000/svg" width="52" height="52" viewBox="0 0 120 120" fill="none" role="img" aria-label="Sex in the Real World monogram">
+  <circle cx="60" cy="60" r="52" fill="#c2410c"></circle>
+  <g stroke="#f0b3a3" stroke-width="3.6" stroke-linecap="round" fill="none" opacity="0.9">
+    <line x1="10" y1="60" x2="110" y2="60"></line>
+    <line x1="26" y1="39" x2="94" y2="39"></line>
+    <line x1="26" y1="81" x2="94" y2="81"></line>
+    <ellipse cx="60" cy="60" rx="22" ry="52"></ellipse>
+  </g>
+  <text x="60" y="63" text-anchor="middle" dominant-baseline="central" fill="#fffaf6" font-family="Georgia, &#39;Times New Roman&#39;, serif" font-weight="700" font-size="62">Ψ</text>
+</svg><span class="wm"><b>Sex in the Real World</b><small style="color:var(--coral-300)">Human sexuality · Nevada State</small></span></div>
+    <span class="eyebrow">PSY 466 · Dr. Martini · Summer 2026</span>
+    <h1 class="title">Project guide &amp; troubleshooting</h1>
+    <p class="subtitle">A stage-by-stage walkthrough of common questions, worked examples, and tips to keep you on track.</p>
   </div>
-  <div class="stage-body">
-    <p class="stage-intro">You have a lot of freedom here, which is great — and occasionally paralyzing. The questions below cover the most common sticking points.</p>
-
+</header>
+<main class="wrap">
+<div class="callout note" style="margin-top:0"><svg class="cico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg><div class="ctxt"><span class="ctt">How to use this guide</span><span class="cbody">Each stage below expands into the questions students ask most, with worked examples and tips. This project covers clinical sexual-health topics; the guidance here is academic and non-explicit. Open any question to read more.</span></div></div>
+<nav class="nav-strip" aria-label="Jump to a stage">
+  <a class="nav-pill" href="#stage1"><span class="np-n">1</span> Topic selection</a>
+  <a class="nav-pill" href="#stage2"><span class="np-n">2</span> Articles &amp; annotations</a>
+  <a class="nav-pill" href="#stage3"><span class="np-n">3</span> Project description</a>
+  <a class="nav-pill" href="#stage4"><span class="np-n">4</span> Dr. M. one-on-one</a>
+  <a class="nav-pill" href="#stage5"><span class="np-n">5</span> Final campaign</a>
+</nav>
+<section class="stage" id="stage1"><div class="stage-header"><span class="stage-badge">1</span><h2 class="stage-title">Topic selection</h2><span class="stage-due">Due Sun May 31</span></div><div class="stage-body"><p class="stage-intro">You have a lot of freedom here, which is great — and occasionally paralyzing. The questions below cover the most common sticking points.</p>
     <div class="faq-item">
-      <button class="faq-q" onclick="toggle(this)" aria-expanded="false">
-        <span class="q-label">Q</span>
-        How do I know if my topic is the right size?
-        <span class="chevron">⌄</span>
-      </button>
+      <button class="faq-q" onclick="toggle(this)" aria-expanded="false"><span class="q-label">Q</span><span class="q-text">How do I know if my topic is the right size?</span><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button>
       <div class="faq-a">
         <p>A good topic fits inside a short social media campaign and has enough empirical research behind it to support five peer-reviewed articles. The most common problem is picking something too broad — something that could be its own semester course.</p>
         <p>A useful gut check: can you imagine a real 10th grader stopping their scroll for this? If the topic sounds like a chapter heading, it needs to be narrowed.</p>
         <div class="example-box">
           <div class="ex-label">Topic narrowing — examples</div>
-          <p class="ex-bad">Consent <span style="color:#bbb;font-weight:400">(too broad — a whole literature)</span></p>
-          <p class="ex-good">Why "going along with it" doesn't count as consent, and what to say instead</p>
-          <br>
-          <p class="ex-bad">STIs <span style="color:#bbb;font-weight:400">(too broad — dozens of infections, each its own topic)</span></p>
-          <p class="ex-good">Why so many people with chlamydia don't know they have it — and why testing matters</p>
-          <br>
-          <p class="ex-bad">Birth control <span style="color:#bbb;font-weight:400">(too broad — covers method comparison, effectiveness, access, etc.)</span></p>
-          <p class="ex-good">Things people do that make birth control pills less effective</p>
+          <span class="ex-bad">Consent <span class="ex-note">(too broad — a whole literature)</span></span>
+          <span class="ex-good">Why "going along with it" doesn't count as consent, and what to say instead</span>
+          <span class="ex-bad">STIs <span class="ex-note">(too broad — dozens of infections, each its own topic)</span></span>
+          <span class="ex-good">Why so many people with chlamydia don't know they have it — and why testing matters</span>
+          <span class="ex-bad">Birth control <span class="ex-note">(too broad — covers method comparison, effectiveness, access, etc.)</span></span>
+          <span class="ex-good">Things people do that make birth control pills less effective</span>
         </div>
       </div>
     </div>
-
     <div class="faq-item">
-      <button class="faq-q" onclick="toggle(this)" aria-expanded="false">
-        <span class="q-label">Q</span>
-        I found a topic I'm really interested in. Should I just go with it?
-        <span class="chevron">⌄</span>
-      </button>
+      <button class="faq-q" onclick="toggle(this)" aria-expanded="false"><span class="q-label">Q</span><span class="q-text">I found a topic I'm really interested in. Should I just go with it?</span><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button>
       <div class="faq-a">
         <p>Interest is a great starting point — but before you commit, do a quick literature search first. Search Google Scholar or PsycINFO for your topic and see whether you can find at least five peer-reviewed empirical articles (articles with a Methods section and a Results section reporting original data — not opinion pieces, reviews, or magazine articles).</p>
         <p>If you can't find five articles in 10 minutes of searching, that's a signal the topic may be too niche, too recent, or more cultural than scientific. It's much easier to pivot now than after you've already invested time.</p>
-        <div class="tip-box"><strong>Quick check before submitting:</strong> Open Google Scholar. Search your topic + "empirical study." If you get a solid list of peer-reviewed results, you're in good shape. If you mostly get news coverage, opinion pieces, or nothing, narrow or pivot.</div>
+        <div class="callout tip"><svg class="cico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/><path d="M9 18h6"/><path d="M10 22h4"/></svg><div class="ctxt"><span class="ctt">Quick check before submitting</span><span class="cbody">Open Google Scholar. Search your topic + "empirical study." If you get a solid list of peer-reviewed results, you're in good shape. If you mostly get news coverage, opinion pieces, or nothing, narrow or pivot.</span></div></div>
       </div>
     </div>
-
     <div class="faq-item">
-      <button class="faq-q" onclick="toggle(this)" aria-expanded="false">
-        <span class="q-label">Q</span>
-        My topic is interesting but I'm not sure it translates to social media for teens. What should I do?
-        <span class="chevron">⌄</span>
-      </button>
+      <button class="faq-q" onclick="toggle(this)" aria-expanded="false"><span class="q-label">Q</span><span class="q-text">My topic is interesting but I'm not sure it translates to social media for teens. What should I do?</span><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button>
       <div class="faq-a">
-        <p>This is worth thinking through early. Some topics are academically interesting but hard to translate for a 16-year-old audience in a non-shaming, engaging way. A useful test: can you identify a specific misconception that a 10th or 11th grader is likely to hold about this topic? If yes, you have something to work with. If the topic is too clinical or abstract to connect to a real teen's life, consider narrowing or reframing it.</p>
+        <p>This is worth thinking through early. Some topics are academically interesting but hard to translate for a 16-year-old audience in a non-shaming, engaging way. A useful test: can you identify a specific misconception that a 10th or 11th grader is likely to hold about this topic? If yes, you have something to work with.</p>
         <p>For example, "treatment of vaginismus" is a legitimate clinical topic but may be harder to frame engagingly for a teen audience than "why some people find sex painful and what can help." Same underlying science — very different entry point.</p>
       </div>
-    </div>
-
-  </div>
-</section>
-
-
-<!-- STAGE 2 -->
-<section class="stage" id="stage2">
-  <div class="stage-header">
-    <div class="stage-badge badge-2">2</div>
-    <span class="stage-title">Article Submission and Annotations</span>
-    <span class="stage-due">Due Sunday, June 7</span>
-  </div>
-  <div class="stage-body">
-    <p class="stage-intro">You need five empirical articles total; you'll submit annotated summaries for three of them using the provided table. Here's where students most often go sideways.</p>
-
+    </div></div></section>
+<section class="stage" id="stage2"><div class="stage-header"><span class="stage-badge">2</span><h2 class="stage-title">Article submission &amp; annotations</h2><span class="stage-due">Due Sun Jun 7</span></div><div class="stage-body"><p class="stage-intro">You need five empirical articles total; you'll submit annotated summaries for three of them using the provided table. Here's where students most often go sideways.</p>
     <div class="faq-item">
-      <button class="faq-q" onclick="toggle(this)" aria-expanded="false">
-        <span class="q-label">Q</span>
-        What makes an article "empirical"? I'm not sure I'm finding the right kind.
-        <span class="chevron">⌄</span>
-      </button>
+      <button class="faq-q" onclick="toggle(this)" aria-expanded="false"><span class="q-label">Q</span><span class="q-text">What makes an article "empirical"? I'm not sure I'm finding the right kind.</span><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button>
       <div class="faq-a">
         <p>An empirical article reports original data collected by the authors of that study. It will have a <strong>Methods section</strong> (describing how data was collected) and a <strong>Results section</strong> (reporting what was found). If it doesn't have both of those sections, it's not empirical for this assignment.</p>
         <div class="example-box">
           <div class="ex-label">What counts — and what doesn't</div>
-          <p class="ex-bad">A review article that summarizes other studies (no original data)</p>
-          <p class="ex-bad">A meta-analysis (combines existing studies — no original data collection)</p>
-          <p class="ex-bad">A Psychology Today article, magazine piece, or blog post</p>
-          <p class="ex-bad">A book chapter</p>
-          <p class="ex-bad">A position statement or opinion piece from a professional organization</p>
-          <br>
-          <p class="ex-good">A study that recruited participants, measured something, and reported results</p>
-          <p class="ex-good">A survey study with a sample, procedure, and statistical results</p>
-          <p class="ex-good">An experiment with conditions, participants, and findings</p>
+          <span class="ex-bad">A review article that summarizes other studies (no original data)</span>
+          <span class="ex-bad">A meta-analysis (combines existing studies — no original data collection)</span>
+          <span class="ex-bad">A Psychology Today article, magazine piece, or blog post</span>
+          <span class="ex-bad">A book chapter</span>
+          <span class="ex-bad">A position statement or opinion piece from a professional organization</span>
+          <span class="ex-good">A study that recruited participants, measured something, and reported results</span>
+          <span class="ex-good">A survey study with a sample, procedure, and statistical results</span>
+          <span class="ex-good">An experiment with conditions, participants, and findings</span>
         </div>
-        <div class="tip-box"><strong>Unsure?</strong> Open the article and scan for a section labeled "Method" or "Methods." If you find it, you're on the right track. Then look for "Results." If both are there and the researchers collected their own data, it's empirical.</div>
+        <div class="callout tip"><svg class="cico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/><path d="M9 18h6"/><path d="M10 22h4"/></svg><div class="ctxt"><span class="ctt">Unsure?</span><span class="cbody">Open the article and scan for a section labeled "Method" or "Methods." If you find it, you're on the right track. Then look for "Results." If both are there and the researchers collected their own data, it's empirical.</span></div></div>
       </div>
     </div>
-
     <div class="faq-item">
-      <button class="faq-q" onclick="toggle(this)" aria-expanded="false">
-        <span class="q-label">Q</span>
-        Where should I be searching for these articles?
-        <span class="chevron">⌄</span>
-      </button>
+      <button class="faq-q" onclick="toggle(this)" aria-expanded="false"><span class="q-label">Q</span><span class="q-text">Where should I be searching for these articles?</span><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button>
       <div class="faq-a">
         <p>Start with <strong>PsycINFO</strong> (available through the NSU library) or <strong>Google Scholar</strong>. Both will surface peer-reviewed research. PsycINFO in particular lets you filter by "Peer Reviewed" and "Empirical Study" which saves a lot of time.</p>
         <p>In Google Scholar, try adding terms like "study," "survey," or "experiment" to your search along with your topic. This helps surface empirical work rather than review articles.</p>
-        <div class="warn-box"><strong>A note on full-text access:</strong> If an article is paywalled, check whether NSU's library has access. You can also email the first author directly — researchers are often happy to share their own work. Don't use a source you haven't read in full.</div>
+        <div class="callout caution"><svg class="cico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg><div class="ctxt"><span class="ctt">A note on full-text access</span><span class="cbody">If an article is paywalled, check whether NSU's library has access. You can also email the first author directly — researchers are often happy to share their own work. Don't use a source you haven't read in full.</span></div></div>
       </div>
     </div>
-
     <div class="faq-item">
-      <button class="faq-q" onclick="toggle(this)" aria-expanded="false">
-        <span class="q-label">Q</span>
-        What's the difference between an annotation and a summary? The table asks for both.
-        <span class="chevron">⌄</span>
-      </button>
+      <button class="faq-q" onclick="toggle(this)" aria-expanded="false"><span class="q-label">Q</span><span class="q-text">What's the difference between an annotation and a summary? The table asks for both.</span><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button>
       <div class="faq-a">
         <p>The summary table walks you through the article section by section — introduction, hypothesis, method, results, explanation — and then asks you to combine those pieces into a coherent paragraph. That final paragraph <em>is</em> your summary.</p>
-        <p>An annotation goes one step further: it evaluates the source and connects it to your project. A strong annotation doesn't just describe what the article found — it explains why this particular study is useful for your project, what specific finding you plan to use, and how it connects to the misconception you're trying to address.</p>
-
+        <p>An annotation goes one step further: it evaluates the source and connects it to your project. A strong annotation explains why this particular study is useful for your project, what specific finding you plan to use, and how it connects to the misconception you're trying to address.</p>
         <div class="example-box">
-          <div class="ex-label">Annotation example (abbreviated)</div>
-          <p style="color:#333; margin-bottom: 0.5rem;"><em>Topic: Why people with chlamydia often don't know they have it</em></p>
-          <p style="color:#888; font-style:italic; margin-bottom: 0.5rem;">Weak (summary only):</p>
-          <p style="color:#555; margin-bottom: 0.75rem;">"This study surveyed 400 college students about STI testing behavior. They found that 62% had never been tested. The authors concluded that testing rates are low."</p>
-          <p style="color:#888; font-style:italic; margin-bottom: 0.5rem;">Stronger (annotation):</p>
-          <p style="color:#333;">"This study surveyed 400 college students and found that 62% had never been tested for STIs despite being sexually active, with the most common reason being 'I don't have any symptoms.' This directly supports my project's core claim — that many young people assume symptom-free means infection-free — and I will use the 62% statistic as the hook for my first post."</p>
+          <div class="ex-label">Annotation example — Topic: Why people with chlamydia often don't know they have it</div>
+          <span class="ex-bad">Weak: "This study surveyed 400 college students about STI testing behavior. They found that 62% had never been tested. The authors concluded that testing rates are low."</span>
+          <span class="ex-good">Stronger: "This study found that 62% of sexually active college students had never been tested, with the most common reason being 'I don't have symptoms.' This directly supports my project's core claim — and I will use the 62% statistic as the hook for my first post."</span>
         </div>
-
         <table class="annotation-table">
-          <thead>
-            <tr>
-              <th>Section in the table</th>
-              <th>What to do</th>
-            </tr>
-          </thead>
+          <thead><tr><th>Section in the table</th><th>What to do</th></tr></thead>
           <tbody>
-            <tr>
-              <td>APA reference</td>
-              <td>Full citation with DOI. Author(s), year, title, journal, volume, pages.</td>
-            </tr>
-            <tr>
-              <td>Introduction</td>
-              <td>1–2 sentences: what problem is this study addressing and why does it matter?</td>
-            </tr>
-            <tr>
-              <td>Hypothesis</td>
-              <td>State the hypothesis in your own words. Identify the predictor (independent) variable and the outcome (dependent) variable.</td>
-            </tr>
-            <tr>
-              <td>Method</td>
-              <td>1–2 sentences: who were the participants, what did they do, and how was the outcome measured?</td>
-            </tr>
-            <tr>
-              <td>Results & discussion</td>
-              <td>Was each hypothesis supported, partially supported, or not supported? Explain briefly.</td>
-            </tr>
-            <tr>
-              <td>Explanation</td>
-              <td>1–2 sentences: what do the authors say explains these results?</td>
-            </tr>
-            <tr>
-              <td>Put it all together</td>
-              <td>Combine steps 2–6 into one readable paragraph. Edit so it flows — don't just paste.</td>
-            </tr>
+            <tr><td>APA reference</td><td>Full citation with DOI. Author(s), year, title, journal, volume, pages.</td></tr>
+            <tr><td>Introduction</td><td>1–2 sentences: what problem is this study addressing and why does it matter?</td></tr>
+            <tr><td>Hypothesis</td><td>State the hypothesis in your own words. Identify the predictor (independent) variable and the outcome (dependent) variable.</td></tr>
+            <tr><td>Method</td><td>1–2 sentences: who were the participants, what did they do, and how was the outcome measured?</td></tr>
+            <tr><td>Results &amp; discussion</td><td>Was each hypothesis supported, partially supported, or not supported? Explain briefly.</td></tr>
+            <tr><td>Explanation</td><td>1–2 sentences: what do the authors say explains these results?</td></tr>
+            <tr><td>Put it all together</td><td>Combine steps 2–6 into one readable paragraph. Edit so it flows — don't just paste.</td></tr>
           </tbody>
         </table>
       </div>
     </div>
-
     <div class="faq-item">
-      <button class="faq-q" onclick="toggle(this)" aria-expanded="false">
-        <span class="q-label">Q</span>
-        Can I use the same article to cover multiple points in my project?
-        <span class="chevron">⌄</span>
-      </button>
+      <button class="faq-q" onclick="toggle(this)" aria-expanded="false"><span class="q-label">Q</span><span class="q-text">Can I use the same article to cover multiple points in my project?</span><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button>
       <div class="faq-a">
         <p>You need five articles, and each one should contribute something distinct to your project — not just add numbers to a list. If three of your articles are all making the same point with slightly different samples, that's a sign to diversify your sources. Ideally, different articles cover different aspects of your topic: maybe one establishes the scope of the problem, one explains a mechanism, one looks at a specific population, and one points toward a solution or intervention.</p>
       </div>
-    </div>
-
-  </div>
-</section>
-
-
-<!-- STAGE 3 -->
-<section class="stage" id="stage3">
-  <div class="stage-header">
-    <div class="stage-badge badge-3">3</div>
-    <span class="stage-title">Project Description</span>
-    <span class="stage-due">Due Sunday, June 14</span>
-  </div>
-  <div class="stage-body">
-    <p class="stage-intro">This is a two-page, single-spaced document with three required components. Students who miss the mark here have usually written a literature review instead of a project description — or skipped one of the three components.</p>
-
+    </div></div></section>
+<section class="stage" id="stage3"><div class="stage-header"><span class="stage-badge">3</span><h2 class="stage-title">Project description</h2><span class="stage-due">Due Sun Jun 14</span></div><div class="stage-body"><p class="stage-intro">This is a two-page, single-spaced document with three required components. Students who miss the mark here have usually written a literature review instead of a project description — or skipped one of the three components.</p>
     <div class="faq-item">
-      <button class="faq-q" onclick="toggle(this)" aria-expanded="false">
-        <span class="q-label">Q</span>
-        What are the three things this document needs to cover?
-        <span class="chevron">⌄</span>
-      </button>
+      <button class="faq-q" onclick="toggle(this)" aria-expanded="false"><span class="q-label">Q</span><span class="q-text">What are the three things this document needs to cover?</span><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button>
       <div class="faq-a">
         <p>The project description has three required components. All three need to be present — missing any one of them will affect your grade significantly.</p>
         <ul class="checklist">
@@ -513,39 +612,27 @@
           <li>The medium you chose — TikTok/Reels video series or Instagram carousel — and a real explanation of <em>why</em> that format works for your specific topic and audience</li>
           <li>How you plan to identify the misconceptions your audience holds and correct them using the science from your articles</li>
         </ul>
-        <div class="warn-box"><strong>The most common mistake:</strong> Students write a strong research summary, tack on "I chose TikTok because it's popular," and don't address the misconception piece at all. All three sections need genuine thought.</div>
+        <div class="callout caution"><svg class="cico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg><div class="ctxt"><span class="ctt">The most common mistake</span><span class="cbody">Students write a strong research summary, tack on "I chose TikTok because it's popular," and don't address the misconception piece at all. All three sections need genuine thought.</span></div></div>
       </div>
     </div>
-
     <div class="faq-item">
-      <button class="faq-q" onclick="toggle(this)" aria-expanded="false">
-        <span class="q-label">Q</span>
-        What counts as a "misconception"? I'm not sure how to identify one.
-        <span class="chevron">⌄</span>
-      </button>
+      <button class="faq-q" onclick="toggle(this)" aria-expanded="false"><span class="q-label">Q</span><span class="q-text">What counts as a "misconception"? I'm not sure how to identify one.</span><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button>
       <div class="faq-a">
         <p>A misconception is a specific, nameable incorrect belief that real members of your audience are likely to hold — and that your research directly addresses. "Students don't know enough about this topic" is not a misconception. It's too vague to build a campaign around.</p>
         <div class="example-box">
           <div class="ex-label">Misconception examples</div>
-          <p class="ex-bad">"Students don't understand consent." <span style="color:#bbb;font-weight:400">(too vague)</span></p>
-          <p class="ex-good">"Many adolescents believe that silence or going along means yes."</p>
-          <br>
-          <p class="ex-bad">"Students need to learn about STI prevention." <span style="color:#bbb;font-weight:400">(a goal, not a misconception)</span></p>
-          <p class="ex-good">"Many teens believe that if they don't have symptoms, they can't have an STI."</p>
-          <br>
-          <p class="ex-bad">"Young people are misinformed about birth control." <span style="color:#bbb;font-weight:400">(not specific enough)</span></p>
-          <p class="ex-good">"Many teens believe that missing one pill occasionally doesn't really affect how well birth control works."</p>
+          <span class="ex-bad">"Students don't understand consent." <span class="ex-note">(too vague)</span></span>
+          <span class="ex-good">"Many adolescents believe that silence or going along means yes."</span>
+          <span class="ex-bad">"Students need to learn about STI prevention." <span class="ex-note">(a goal, not a misconception)</span></span>
+          <span class="ex-good">"Many teens believe that if they don't have symptoms, they can't have an STI."</span>
+          <span class="ex-bad">"Young people are misinformed about birth control." <span class="ex-note">(not specific enough)</span></span>
+          <span class="ex-good">"Many teens believe that missing one pill occasionally doesn't really affect how well birth control works."</span>
         </div>
-        <p style="margin-top: 0.75rem;">Once you've named the misconception, your project description should explain which specific article(s) provide the evidence to correct it.</p>
+        <p>Once you've named the misconception, your project description should explain which specific article(s) provide the evidence to correct it.</p>
       </div>
     </div>
-
     <div class="faq-item">
-      <button class="faq-q" onclick="toggle(this)" aria-expanded="false">
-        <span class="q-label">Q</span>
-        How do I justify my medium choice beyond "everyone uses TikTok"?
-        <span class="chevron">⌄</span>
-      </button>
+      <button class="faq-q" onclick="toggle(this)" aria-expanded="false"><span class="q-label">Q</span><span class="q-text">How do I justify my medium choice beyond "everyone uses TikTok"?</span><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button>
       <div class="faq-a">
         <p>Think about what your specific content needs in order to land effectively. A few questions that can help you build a real justification:</p>
         <ul class="checklist">
@@ -556,40 +643,17 @@
         </ul>
         <p>You don't need to cite research on social media use. You just need to make a real argument that connects your content to your format choice.</p>
       </div>
-    </div>
-
-  </div>
-</section>
-
-
-<!-- STAGE 4 -->
-<section class="stage" id="stage4">
-  <div class="stage-header">
-    <div class="stage-badge badge-4">4</div>
-    <span class="stage-title">Dr. M. 1-on-1</span>
-    <span class="stage-due">Due by 5pm Friday, June 19</span>
-  </div>
-  <div class="stage-body">
-    <p class="stage-intro">This meeting exists to help you, not evaluate you. Dr. M. will flag potential problems before you invest time in a final product that misses the mark. The main thing that goes wrong here is waiting too long to schedule.</p>
-
+    </div></div></section>
+<section class="stage" id="stage4"><div class="stage-header"><span class="stage-badge">4</span><h2 class="stage-title">Dr. M. one-on-one</h2><span class="stage-due">Due 5pm Fri Jun 19</span></div><div class="stage-body"><p class="stage-intro">This meeting exists to help you, not evaluate you. Dr. M. will flag potential problems before you invest time in a final product that misses the mark. The main thing that goes wrong here is waiting too long to schedule.</p>
     <div class="faq-item">
-      <button class="faq-q" onclick="toggle(this)" aria-expanded="false">
-        <span class="q-label">Q</span>
-        When should I schedule this meeting?
-        <span class="chevron">⌄</span>
-      </button>
+      <button class="faq-q" onclick="toggle(this)" aria-expanded="false"><span class="q-label">Q</span><span class="q-text">When should I schedule this meeting?</span><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button>
       <div class="faq-a">
-        <p>Schedule it during Week 3 or early Week 4 — as soon as you've submitted your project description. Don't wait until Week 5. The deadline is Friday, June 19th at 5pm, and Dr. M.'s availability fills up. Students who wait until the last week often find that all slots are taken.</p>
-        <div class="tip-box"><strong>Schedule now:</strong> You can book via Calendly at <a href="https://calendly.com/1005373940-nevadastate/stumtg" style="color: #185FA5;">calendly.com/1005373940-nevadastate/stumtg</a>. You don't need to have everything figured out before you book — that's the point of the meeting.</div>
+        <p>Schedule it during Week 3 or early Week 4 — as soon as you've submitted your Project Description. Don't wait until Week 5. The deadline is Friday, June 19th at 5pm, and Dr. M.'s availability fills up. Students who wait until the last week often find that all slots are taken.</p>
+        <div class="callout tip"><svg class="cico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/><path d="M9 18h6"/><path d="M10 22h4"/></svg><div class="ctxt"><span class="ctt">Schedule now</span><span class="cbody">Book via Calendly at <a href="https://calendly.com/1005373940-nevadastate/stumtg">calendly.com/1005373940-nevadastate/stumtg</a>. You don't need to have everything figured out before you book — that's the point of the meeting.</span></div></div>
       </div>
     </div>
-
     <div class="faq-item">
-      <button class="faq-q" onclick="toggle(this)" aria-expanded="false">
-        <span class="q-label">Q</span>
-        What should I bring to the meeting or have ready?
-        <span class="chevron">⌄</span>
-      </button>
+      <button class="faq-q" onclick="toggle(this)" aria-expanded="false"><span class="q-label">Q</span><span class="q-text">What should I bring to the meeting or have ready?</span><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button>
       <div class="faq-a">
         <p>The meeting will cover the materials from Stages 1–3 and your current thinking about the final product. You'll get the most out of it if you come with:</p>
         <ul class="checklist">
@@ -601,42 +665,18 @@
         <p>You don't need a finished product or a polished plan. Showing up with open questions is fine — that's exactly what this meeting is for.</p>
       </div>
     </div>
-
     <div class="faq-item">
-      <button class="faq-q" onclick="toggle(this)" aria-expanded="false">
-        <span class="q-label">Q</span>
-        I feel nervous about meeting one-on-one with my professor. Any advice?
-        <span class="chevron">⌄</span>
-      </button>
+      <button class="faq-q" onclick="toggle(this)" aria-expanded="false"><span class="q-label">Q</span><span class="q-text">I feel nervous about meeting one-on-one with my professor. Any advice?</span><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button>
       <div class="faq-a">
         <p>That's completely understandable, and you're not alone in feeling that way. It helps to remember that this meeting is structured around your project, not around testing you. Dr. M. isn't looking for you to have all the answers — the goal is to make sure you're on a path that will lead to a strong final product.</p>
         <p>If you're anxious, you can bring notes or a quick outline of where you are and what you're uncertain about. Having something concrete to refer to often makes the conversation feel more grounded.</p>
       </div>
-    </div>
-
-  </div>
-</section>
-
-
-<!-- STAGE 5 -->
-<section class="stage" id="stage5">
-  <div class="stage-header">
-    <div class="stage-badge badge-5">5</div>
-    <span class="stage-title">Final Social Media Campaign Submission</span>
-    <span class="stage-due">Due by 5pm Friday, June 27</span>
-  </div>
-  <div class="stage-body">
-    <p class="stage-intro">The final submission is more than just the posts. Make sure you know exactly what you need to turn in — and what "evidence-based" actually requires in practice.</p>
-
+    </div></div></section>
+<section class="stage" id="stage5"><div class="stage-header"><span class="stage-badge">5</span><h2 class="stage-title">Final social-media campaign</h2><span class="stage-due">Due 5pm Fri Jun 27</span></div><div class="stage-body"><p class="stage-intro">The final submission is more than just the posts. Make sure you know exactly what you need to turn in — and what "evidence-based" actually requires in practice.</p>
     <div class="faq-item">
-      <button class="faq-q" onclick="toggle(this)" aria-expanded="false">
-        <span class="q-label">Q</span>
-        What exactly do I need to submit? I don't want to miss anything.
-        <span class="chevron">⌄</span>
-      </button>
+      <button class="faq-q" onclick="toggle(this)" aria-expanded="false"><span class="q-label">Q</span><span class="q-text">What exactly do I need to submit? I don't want to miss anything.</span><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button>
       <div class="faq-a">
         <p>The submission has two parts: the live post(s) and the written documentation. Many students post their content and consider it done — but the written documentation is a major component of what gets graded.</p>
-
         <p><strong>If you chose the TikTok/Reels video format:</strong></p>
         <ul class="checklist">
           <li>Three posted TikTok/Reels-style videos (minimum 90 seconds total)</li>
@@ -645,8 +685,7 @@
           <li>A source note for each video identifying which empirical article supports the major claims, with page numbers</li>
           <li>The link to your mock account</li>
         </ul>
-
-        <p style="margin-top: 0.75rem;"><strong>If you chose the Instagram carousel format:</strong></p>
+        <p><strong>If you chose the Instagram carousel format:</strong></p>
         <ul class="checklist">
           <li>One Instagram carousel post (minimum five slides)</li>
           <li>The caption/descriptive text for the post</li>
@@ -654,53 +693,37 @@
           <li>A source note for each slide identifying which empirical article supports the major claims, with page numbers</li>
           <li>The link to your mock account</li>
         </ul>
-
-        <div class="warn-box"><strong>No link = no grade.</strong> Without an active, accessible link to your social media account, the project cannot be graded. Test your link before submitting.</div>
+        <div class="callout caution"><svg class="cico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg><div class="ctxt"><span class="ctt">No link = no grade</span><span class="cbody">Without an active, accessible link to your social media account, the project cannot be graded. Test your link before submitting.</span></div></div>
       </div>
     </div>
-
     <div class="faq-item">
-      <button class="faq-q" onclick="toggle(this)" aria-expanded="false">
-        <span class="q-label">Q</span>
-        How do I set up a mock account? Do I have to use my real name?
-        <span class="chevron">⌄</span>
-      </button>
+      <button class="faq-q" onclick="toggle(this)" aria-expanded="false"><span class="q-label">Q</span><span class="q-text">How do I set up a mock account? Do I have to use my real name?</span><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button>
       <div class="faq-a">
         <p>No — you should <em>not</em> use your real name or personal account for this. Create a new account specifically for this project. It doesn't need to be elaborate: a username, a profile picture (not your face), and the posts are all you need.</p>
-        <p>On TikTok and Instagram, you can create a second account using a different email address. Keep the account public so the link is accessible. You don't need to keep it active after the course ends.</p>
+        <p>On TikTok and Instagram, you can create a second account using a different email address. Keep the account public so the link is accessible.</p>
         <div class="example-box">
           <div class="ex-label">Your mock account should NOT</div>
-          <p class="ex-bad">Use your personal account name or real photos of yourself</p>
-          <p class="ex-bad">Include private personal information</p>
-          <p class="ex-bad">Use images of minors</p>
-          <p class="ex-bad">Directly contact, tag, or message minors</p>
-          <p class="ex-bad">Present itself as an official university, school, or public health account</p>
+          <span class="ex-bad">Use your personal account name or real photos of yourself</span>
+          <span class="ex-bad">Include private personal information</span>
+          <span class="ex-bad">Use images of minors</span>
+          <span class="ex-bad">Directly contact, tag, or message minors</span>
+          <span class="ex-bad">Present itself as an official university, school, or public health account</span>
         </div>
       </div>
     </div>
-
     <div class="faq-item">
-      <button class="faq-q" onclick="toggle(this)" aria-expanded="false">
-        <span class="q-label">Q</span>
-        My content mentions studies, but do I really need to cite them on the actual post?
-        <span class="chevron">⌄</span>
-      </button>
+      <button class="faq-q" onclick="toggle(this)" aria-expanded="false"><span class="q-label">Q</span><span class="q-text">My content mentions studies, but do I really need to cite them on the actual post?</span><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button>
       <div class="faq-a">
-        <p>Yes — but you have flexibility in how you do it. You don't need a full APA citation on every slide or screen (that would make the post unreadable). You have two options:</p>
+        <p>Yes — but you have flexibility in how you do it. You don't need a full APA citation on every slide or screen. You have two options:</p>
         <ul class="checklist">
-          <li><strong>On-screen/on-slide:</strong> A brief in-text citation where the claim appears, e.g., "(Smith & Garcia, 2022)"</li>
-          <li><strong>In the caption:</strong> A note that explains which sources the post is based on, e.g., "Information in this post is drawn from research by Smith & Garcia (2022) and Nguyen et al. (2021)."</li>
+          <li><strong>On-screen/on-slide:</strong> A brief in-text citation where the claim appears, e.g., "(Smith &amp; Garcia, 2022)"</li>
+          <li><strong>In the caption:</strong> A note that explains which sources the post is based on, e.g., "Information in this post is drawn from research by Smith &amp; Garcia (2022) and Nguyen et al. (2021)."</li>
         </ul>
-        <p>Either approach is fine. What matters is that a viewer — and Dr. M. — can tell where your claims are coming from. "Studies show..." with no traceable source doesn't meet the requirement.</p>
+        <p>Either approach is fine. What matters is that a viewer — and Dr. M. — can tell where your claims are coming from.</p>
       </div>
     </div>
-
     <div class="faq-item">
-      <button class="faq-q" onclick="toggle(this)" aria-expanded="false">
-        <span class="q-label">Q</span>
-        My content is accurate but it feels kind of dry. How do I make it more engaging without dumbing it down?
-        <span class="chevron">⌄</span>
-      </button>
+      <button class="faq-q" onclick="toggle(this)" aria-expanded="false"><span class="q-label">Q</span><span class="q-text">My content is accurate but it feels kind of dry. How do I make it more engaging without dumbing it down?</span><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button>
       <div class="faq-a">
         <p>This is one of the hardest parts of science communication — and it's exactly what the project is designed to practice. A few things that tend to help:</p>
         <ul class="checklist">
@@ -711,36 +734,31 @@
         </ul>
         <p>The goal is still to teach accurate science. The hook just determines whether anyone sticks around long enough to receive it.</p>
       </div>
-    </div>
-
-  </div>
-</section>
-
+    </div></div></section>
+<footer class="colophon"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 120 120" fill="none" role="img" aria-label="Sex in the Real World monogram">
+  <circle cx="60" cy="60" r="52" fill="#c2410c"></circle>
+  <g stroke="#f0b3a3" stroke-width="3.6" stroke-linecap="round" fill="none" opacity="0.9">
+    <line x1="10" y1="60" x2="110" y2="60"></line>
+    <line x1="26" y1="39" x2="94" y2="39"></line>
+    <line x1="26" y1="81" x2="94" y2="81"></line>
+    <ellipse cx="60" cy="60" rx="22" ry="52"></ellipse>
+  </g>
+  <text x="60" y="63" text-anchor="middle" dominant-baseline="central" fill="#fffaf6" font-family="Georgia, &#39;Times New Roman&#39;, serif" font-weight="700" font-size="62">Ψ</text>
+</svg><span>Sex in the Real World — course guide</span><span class="c-meta" style="margin-left:auto">PSY 466 · Nevada State University</span></footer>
+</main>
 <script>
-function toggle(btn) {
-  var answer = btn.nextElementSibling;
-  var isOpen = answer.classList.contains('visible');
-  if (isOpen) {
-    answer.classList.remove('visible');
-    btn.classList.remove('open');
-    btn.setAttribute('aria-expanded', 'false');
-  } else {
-    answer.classList.add('visible');
-    btn.classList.add('open');
-    btn.setAttribute('aria-expanded', 'true');
-  }
+function toggle(btn){
+  var a = btn.nextElementSibling, open = a.classList.contains('visible');
+  a.classList.toggle('visible', !open);
+  btn.classList.toggle('open', !open);
+  btn.setAttribute('aria-expanded', String(!open));
 }
-
-document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
-  anchor.addEventListener('click', function(e) {
-    e.preventDefault();
-    var target = document.querySelector(this.getAttribute('href'));
-    if (target) {
-      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
+document.querySelectorAll('a[href^="#"]').forEach(function(a){
+  a.addEventListener('click', function(e){
+    var t = document.querySelector(this.getAttribute('href'));
+    if(t){ e.preventDefault(); t.scrollIntoView({behavior:'smooth', block:'start'}); }
   });
 });
 </script>
-
 </body>
 </html>
